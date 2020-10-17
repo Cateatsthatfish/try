@@ -130,7 +130,8 @@ int main(){
     //string 转float
     //如果没有进入mode1，2，3 in1 和in2就都会是零
     //那么v1和v2还都什么都没有
-    if((mod!=4)&&(!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
+    if(mod!=4){
+    if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
     {
         if(isFloat(in1) && isFloat(in2)) //合理性验证待更新
         {
@@ -152,6 +153,7 @@ int main(){
     else{
         
         cout << "no input received! "<<endl;
+    }
     }
  
     //只能进到mod4中
@@ -178,7 +180,7 @@ int main(){
      }
 
     //////得到v1和v2
-    try {
+    
     if( (v1[0]!=0) && (v2[0]!=0)){
         if(v1[0]==v2[0]){
             vlen = v1[0];
@@ -235,20 +237,20 @@ int main(){
                 cout << "(time: " << time << "ms)" << endl;
             }
 
-        }else{
+        }
+        else{
            cout << "the two vectors do not have the same length" <<endl;
         }
-    }else{
+    }
+    else{
         cout << "no input received! "<<endl;
     }
 
 
     delete [] v1;
     delete [] v2;
-    }
-    catch(bad_alloc & e){
-        cerr << e.what() << endl;
-    }
+    
+
 
     return 0;
 }
