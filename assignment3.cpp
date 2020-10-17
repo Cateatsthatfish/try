@@ -30,7 +30,7 @@ int hint(); /////给出提示，返回输入模式
 float dot_product(float*, float*,int); // 计算向量 //这里需要改成long double计算大数值
 bool isFloat(string); //判断输入的数有没有除了float和，之外的东西
 bool StringIsNull(string); //判断输入为空 ////////////////？如果是回车怎么办？
-bool IsVaild_m4input(int); //判断model4中输入的数是否符合条件，先假设它是一个整数，再判断它是否大于等于零，其他情况还没想到
+bool IsValid_m4input(int); //判断mode4中输入的数是否符合条件，先假设它是一个整数，再判断它是否大于等于零，其他情况还没想到
 string blank(string); // 去除空格
 float* tofloat(string); // 提取字符串中的float
 ///用于多线程计算
@@ -117,6 +117,27 @@ int main(){
     }
     
     //string 转float
+    if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
+    {
+        if(isFloat(in1) && isFloat(in2)) //合理性验证待更新
+        {
+
+    // 去除空格
+    string str1, str2;
+    str1 = blank(in1);
+    str2 = blank(in2);
+    
+    // string -> float*
+    //分割标志：‘，’
+     v1 = tofloat(str1);
+     v2 = tofloat(str2);
+        }else{
+            cout << "invalid inputs!" << endl; 
+        }
+
+    }else{
+        cout << "no input received! "<<endl;
+    }
 
     
     
@@ -242,7 +263,7 @@ int main(){
 int hint(){
     cout << "hint: please enter the two vectors whose elements are separated by ',':" <<endl; //提示输入两个向量
     cout << "for example: 1,2,3……" <<endl;
-    cout << "there are four models to enter" << endl;
+    cout << "there are four modes to enter" << endl;
     cout << "press '1' : enter in terminal " <<endl;
     cout << "press '2' : enter in '.txt'file " <<endl;
     cout << "press '3' : enter in binary file" <<endl;
@@ -250,11 +271,11 @@ int hint(){
     cout << "press '0' : exit" << endl; ////////////////////怎么退出来着？
 
     /////////////////////////选择模型
-    int model = cin.get();/////////////////////////////////考虑输入异常情况（数值不对，空格回车tab）
-    /*switch(model){
+    int mode = cin.get();/////////////////////////////////考虑输入异常情况（数值不对，空格回车tab）
+    /*switch(mode){
         case 1: 
     }*/
-    return model;
+    return mode;
 }
 
 bool StringIsNull(string str){
