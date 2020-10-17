@@ -1,5 +1,6 @@
 
 ///// this is a program to product random float numbers
+///// i < 200000000 assignment 会报错
 #include<Windows.h>
 #include <iostream>
 #include <fstream>
