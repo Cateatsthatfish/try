@@ -15,13 +15,13 @@
 #pragma GCC optimize(3, "Ofast", "inline") //O3优化，由张睿豪提供
 
 /////随机数范围
-/*
+
 const int a = INT_MIN/2;
 const int b = INT_MAX/2;
-*/
+/*
 const int a = -1;
 const int b = 1;
-
+*/
 using namespace std;
 
 //////需要用到的函数
@@ -63,8 +63,10 @@ int main(){
 
         v1[0] = vlen;
         v2[0] = vlen;
+
         srand((int)time(0));
         ///把数存入v1和v2
+        try{
         for (int i = 1; i < vlen+1; i++) 
     {
          v1[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
@@ -72,6 +74,7 @@ int main(){
     }
 
     cout << "start calculating... Please hold on a second... " <<endl;
+    
     if(vlen>1000000)  //////////////////五个线程
             {
                 
@@ -124,10 +127,10 @@ int main(){
             }
 
     
-    /*}
+    }
     catch(bad_alloc & e){
         cerr << e.what() << endl;
-    }*/
+    }
 
 
     delete [] v1;
