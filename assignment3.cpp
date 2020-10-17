@@ -6,7 +6,16 @@
 #include <fstream>
 #include <thread>
 #include <numeric>
+#include <cstdlib>
+#include <ctime>
+#include <climits>
+#include <float.h>
+
 #pragma GCC optimize(3, "Ofast", "inline") //O3优化，由张睿豪提供
+
+/////随机数范围
+const int a = INT_MIN/2;
+const int b = INT_MAX/2;
 
 using namespace std;
 
@@ -34,6 +43,12 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
 
 int main(){
     string in1, in2; /////////用来存输入
+    int vlen = 0; ////两个vector里面数的个数
+    ////////////////////////记得delete float!!!!!!!!!!!!!!!
+    float *v1 = new float; // 向量1
+    float *v2 = new float; // 向量2
+
+    //提示选择模式
     int mod = hint();
     //退出程序
     if(mod == 0){ exit(0);} ////////////?确认用0是否合适
@@ -98,21 +113,28 @@ int main(){
         bfile2.close();
         }
     }
-    //直接在程序中生成
+    //直接在程序中生成v1和v2
     if(mod == 4){
+        cout << "Please enter a positive integer 'n' to generate two n-length vectors: ";
+        cin >> vlen; //////异常处理（1、如果输入不是正整数怎么办 2、科学计数法？输入）
+        //因为float 比 int范围大所以可以把长度放在第一位
+        v1[0] = vlen;
+        v2[0] = vlen;
+    srand((int)time(0));
+    ///把数存入v1和v2
+    for (int i = 1; i < vlen+1; i++) 
+    {
+         v1[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
+         v2[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
+    }
         
+
     }
 
-
-
-    
-
-    //cout << in2 << endl;
-
     // 合理性验证
-    //cout << "here?" <<endl;
+
     if(isFloat(in1) && isFloat(in2)){
-    //cout << "here" <<endl;
+
     // 去除空格
     string str1, str2;
     str1 = blank(in1);
@@ -204,6 +226,9 @@ int main(){
         cout << "invalid inputs!" << endl; 
     }
 
+    delete [] v1;
+    delete [] v2;
+
     return 0;
 }
 
@@ -214,7 +239,7 @@ int hint(){
     cout << "press '1' : enter in terminal " <<endl;
     cout << "press '2' : enter in '.txt'file " <<endl;
     cout << "press '3' : enter in binary file" <<endl;
-    cout << "press '4' : enter an integer to generate two random vectors automatically: " <<endl;
+    cout << "press '4' : automatically generate two random vectors : " <<endl;
     cout << "press '0' : exit" << endl; ////////////////////怎么退出来着？
 
     /////////////////////////选择模型
@@ -301,13 +326,13 @@ bool isFloat(string in){
     for(int i = 0; i< in.length();i++){
         ascii = in[i];
         if(ascii<'0'|| ascii>'9'){
-            if(ascii != '.' && ascii!=',' && ascii!='-'){
+            if(ascii != '.' && ascii!=',' && ascii!='-'&& ascii!='+'&& ascii!='e'&& ascii!='E'){
                 back = false;
                 break;
             }            
         }
     }
     //cout << back <<endl;
-    return true;
-    //return back;
+    //return true;
+    return back;
 }
