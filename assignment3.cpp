@@ -21,12 +21,8 @@ using namespace std;
 
 //////需要用到的函数
 
-void hint(); /////给出提示，返回输入模式
-///1 退出的实现
-///2 判断异常的输入->返回为零
-//（1）除了0-4之外的字符（2）tab，空格，回车（3）复制的string?
-
-
+void hint(); /////给出提示
+bool isValid_modeinput(string); ///输入模式mode的判断，只有输入0-4 （不含 空格，回车，tab）才判对
 long double dot_product(float*, float*,int); // 计算向量 //这里需要改成long double计算大数值
 bool isFloat(string); //判断输入的数有没有除了float和，之外的东西
 bool StringIsNull(string); //判断输入为空 ////////////////？如果是回车怎么办？
@@ -42,6 +38,7 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
 }
 
 
+///// 主函数
 
 int main(){
     string in1, in2; /////////用来存输入
@@ -53,9 +50,15 @@ int main(){
 
     //提示选择模式
     hint();
-    int mod;
-    cin >> mod;
-    /////////////////考虑mode不等于0，1，2，3，4或者控制mode只能等于0，1，2，3，4
+    //选择模式
+    string mode;
+    getline(cin,mode); 
+    while(!isValid_modeinput(mode)){
+        cout << "Invalid input! please try again!" <<endl;
+        getline(cin,mode); 
+    }
+    int mod = atoi(mode.c_str());
+
     //退出程序
     if(mod == 0){ exit(0);} ////////////?确认用0是否合适
     //terminal 读入
@@ -239,6 +242,7 @@ int main(){
     return 0;
 }
 
+//////函数
 void hint(){
     cout << "please enter the two vectors whose elements are separated by \',\'" <<endl; //提示输入两个向量
     cout << "for example: 1,2,3……" <<endl;
@@ -250,6 +254,18 @@ void hint(){
     cout << "press '0' : exit" << endl; ////////////////////怎么退出来着？
 
     //return mode;
+}
+
+bool isValid_modeinput(string in)
+{
+    bool right_mode = false;
+    if(in.length()==1){
+        if(in[0]<='4'&& in[0]>='0')
+        {
+            right_mode = true;
+        }
+    }
+    return right_mode;
 }
 
 bool StringIsNull(string str){
