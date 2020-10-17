@@ -123,7 +123,7 @@ int main(){
     //string 转float
     //如果没有进入mode1，2，3 in1 和in2就都会是零
     //那么v1和v2还都什么都没有
-    if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
+    if((mod!=4)&&(!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
     {
         if(isFloat(in1) && isFloat(in2)) //合理性验证待更新
         {
@@ -143,6 +143,7 @@ int main(){
 
     }
     else{
+        
         cout << "no input received! "<<endl;
     }
  
