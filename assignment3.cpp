@@ -29,6 +29,8 @@ int hint(); /////给出提示，返回输入模式
 
 float dot_product(float*, float*,int); // 计算向量 //这里需要改成long double计算大数值
 bool isFloat(string); //判断输入的数有没有除了float和，之外的东西
+bool StringIsNull(string); //判断输入为空 ////////////////？如果是回车怎么办？
+bool IsVaild_m4input(int); //判断model4中输入的数是否符合条件，先假设它是一个整数，再判断它是否大于等于零，其他情况还没想到
 string blank(string); // 去除空格
 float* tofloat(string); // 提取字符串中的float
 ///用于多线程计算
@@ -113,6 +115,11 @@ int main(){
         bfile2.close();
         }
     }
+    
+    //string 转float
+
+    
+    
     //直接在程序中生成v1和v2
     if(mod == 4){
         cout << "Please enter a positive integer 'n' to generate two n-length vectors: ";
@@ -249,6 +256,21 @@ int hint(){
     }*/
     return model;
 }
+
+bool StringIsNull(string str){
+    if(str.length()==0){
+        return true;
+    }
+    return false;
+}
+
+bool IsValid_m4input(int len){
+    if(len <=0){
+        return false;
+    }
+    return true;
+}
+
 ////// 提取float
 float* tofloat(string str)
 {
@@ -319,6 +341,7 @@ float dot_product(float* v1, float*v2, int length){
 }
 
 /////判断其中是否有错误的输入
+///keep updating
 bool isFloat(string in){
     bool back = true;
     int ascii = -1;
