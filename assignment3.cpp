@@ -252,8 +252,8 @@ void hint(){
     cout << "press '3' : enter in binary file" <<endl;
     cout << "press '4' : automatically generate two random vectors  " <<endl;
     cout << "press '0' : exit" << endl; ////////////////////怎么退出来着？
-
-    //return mode;
+    cout << "--------------------------------------------" <<endl;
+    cout << "press \'enter\' to continue" << endl; 
 }
 
 bool isValid_modeinput(string in)
