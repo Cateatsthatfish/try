@@ -27,7 +27,7 @@ int hint(); /////给出提示，返回输入模式
 //（1）除了0-4之外的字符（2）tab，空格，回车（3）复制的string?
 
 
-float dot_product(float*, float*,int); // 计算向量 //这里需要改成long double计算大数值
+long double dot_product(float*, float*,int); // 计算向量 //这里需要改成long double计算大数值
 bool isFloat(string); //判断输入的数有没有除了float和，之外的东西
 bool StringIsNull(string); //判断输入为空 ////////////////？如果是回车怎么办？
 bool IsValid_m4input(int); //判断mode4中输入的数是否符合条件，先假设它是一个整数，再判断它是否大于等于零，其他情况还没想到
@@ -49,9 +49,11 @@ int main(){
     ////////////////////////记得delete float!!!!!!!!!!!!!!!
     float *v1 = new float; // 向量1
     float *v2 = new float; // 向量2
+    long double result = 0; //点乘的结果
 
     //提示选择模式
     int mod = hint();
+    /////////////////考虑mode不等于0，1，2，3，4或者控制mode只能等于0，1，2，3，4
     //退出程序
     if(mod == 0){ exit(0);} ////////////?确认用0是否合适
     //terminal 读入
@@ -117,6 +119,8 @@ int main(){
     }
     
     //string 转float
+    //如果没有进入mode1，2，3 in1 和in2就都会是零
+    //那么v1和v2还都什么都没有
     if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
     {
         if(isFloat(in1) && isFloat(in2)) //合理性验证待更新
@@ -135,62 +139,43 @@ int main(){
             cout << "invalid inputs!" << endl; 
         }
 
-    }else{
+    }
+    else{
         cout << "no input received! "<<endl;
     }
-
-    
-    
+ 
+    //只能进到mod4中
     //直接在程序中生成v1和v2
     if(mod == 4){
         cout << "Please enter a positive integer 'n' to generate two n-length vectors: ";
         cin >> vlen; //////异常处理（1、如果输入不是正整数怎么办 2、科学计数法？输入）
+        if(IsValid_m4input(vlen)){
         //因为float 比 int范围大所以可以把长度放在第一位
         v1[0] = vlen;
         v2[0] = vlen;
-    srand((int)time(0));
-    ///把数存入v1和v2
-    for (int i = 1; i < vlen+1; i++) 
+        srand((int)time(0));
+        ///把数存入v1和v2
+        for (int i = 1; i < vlen+1; i++) 
     {
          v1[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
          v2[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
     }
+
+        }else{
+            cout << "invalid input 'n" <<endl;
+        }
         
+     }
 
-    }
+    //////得到v1和v2
+    if( (v1[0]!=0) && (v2[0]!=0)){
+        if(v1[0]==v2[0]){
+            vlen = v1[0];
+            //计算&计时
+            if(v1[0]>10000000)  //////////////////五个线程
+            {
+    auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
 
-    // 合理性验证
-
-    if(isFloat(in1) && isFloat(in2)){
-
-    // 去除空格
-    string str1, str2;
-    str1 = blank(in1);
-    str2 = blank(in2);
-    
-    // string -> float*
-    //分割标志：‘，’
-    float* v1 = tofloat(str1);
-    float* v2 = tofloat(str2);
-
-    //cout << v1[0] <<endl;
-    //cout << v2[0] <<endl;
-
-
-    //计算
-    if(v1[0]==v2[0]){
-    //测量时间,代码来自张睿豪
-    double time = 0;
-    double counts = 0;
-    LARGE_INTEGER nFreq;
-    LARGE_INTEGER nBeginTime;
-    LARGE_INTEGER nEndTime;
-    QueryPerformanceFrequency(&nFreq);
-    QueryPerformanceCounter(&nBeginTime); 
-
-    //计算
-    //float result = dot_product(v1,v2,v1[0]);
-    //多线程用于计算
     //五个值用来分别储存
     long double result1 =0;
     long double result2 =0;
@@ -198,61 +183,52 @@ int main(){
     long double result4 =0;
     long double result5 =0;
    
+    //int innum = v1[0];
 
-    int innum = v1[0];
-
-    int start1 = innum/5;
-    int start2 = 2*innum/5;
-    int start3 = 3*innum/5;
-    int start4 = 4*innum/5;
-    int start5 = innum+1;
+    int start1 = vlen/5;
+    int start2 = 2*vlen/5;
+    int start3 = 3*vlen/5;
+    int start4 = 4*vlen/5;
+    int start5 = vlen+1;
 
     thread first(dotProduct,1,start1,std::ref(v1),std::ref(v2),std::ref(result1));
-    
-    //cout << result1 << endl;
-
-    thread second(dotProduct,start1,start2,std::ref(v1),std::ref(v2),std::ref(result2));
-    
-    //cout << result2 << endl;
-    
+    thread second(dotProduct,start1,start2,std::ref(v1),std::ref(v2),std::ref(result2));    
     thread third(dotProduct,start2,start3,std::ref(v1),std::ref(v2),std::ref(result3));
-    
-    //cout << result3 << endl;
-
     thread forth(dotProduct,start3,start4,std::ref(v1),std::ref(v2),std::ref(result4));
-    
-    //cout << result4 << endl;
-
     thread fifth(dotProduct,start4,start5,std::ref(v1),std::ref(v2),std::ref(result5));
-    
-    //cout << result5 << endl; 
-
+ 
     first.join(); //主线程要等待子线程执行完毕
     second.join();
     third.join();
     forth.join();
     fifth.join();
 
-    long double result = result1 + result2+result3+result4+result5;
-   //cout << r <<endl;
-    
-
-
-    QueryPerformanceCounter(&nEndTime);                                                //停止计时
-    time = (double)(nEndTime.QuadPart - nBeginTime.QuadPart) / (double)nFreq.QuadPart; //计算程序执行时间单位为s
+    result = result1 + result2+result3+result4+result5;
+    auto t2=std::chrono::steady_clock::now();
+    //毫秒级
+    double time=std::chrono::duration<double,std::milli>(t2-t1).count();
+   
     cout << result << endl;
-    cout << "(time: " << time * 1000 << "ms)" << endl;
+    cout << "(time: " << time << "ms)" << endl;
+
+            }
+            else ///////直接算
+            {
+                auto t1=std::chrono::steady_clock::now();
+                result = dot_product(v1,v2,vlen);
+                auto t2=std::chrono::steady_clock::now();
+                double time=std::chrono::duration<double,std::milli>(t2-t1).count();
+                cout << result << endl;
+                cout << "(time: " << time << "ms)" << endl;
+            }
+
+        }else{
+           cout << "the two vectors do not have the same length" <<endl;
+        }
     }else{
-        cout << "the two vectors do not have the same length" <<endl;
+        cout << "no input received! "<<endl;
     }
 
-
-    delete [] v1;
-    delete [] v2;
-    }
-    else{
-        cout << "invalid inputs!" << endl; 
-    }
 
     delete [] v1;
     delete [] v2;
@@ -344,12 +320,12 @@ string blank(string in)
     }
     return nblank;
 }
-///////点乘运算
-float dot_product(float* v1, float*v2, int length){
+///////点乘运算，不是线程的方法
+long double dot_product(float* v1, float*v2, int length){
 
-    float dp = 0;
+    long double dp = 0;
     //cout << "length = " << length << endl;
-    for(int i = 1; i< length+1;i++) //把第一个去掉
+    for(int i = 1; i< length+1;i++) //把第一个跳掉
     {
         //cout << "v1["<<i<<"]=" << v1[i] <<endl;
         //cout << "v2["<<i<<"]=" << v2[i] <<endl;
