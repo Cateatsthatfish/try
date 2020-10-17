@@ -76,7 +76,7 @@ int main(){
     if(mod == 2)
     {
     cout << "please put the vectors into 'v1.txt' and 'v2.txt'separately" <<endl;
-    try{
+    
     ifstream myfile1("v1.txt");
     if(myfile1.is_open()){
         cout << "read from the file1" <<endl;
@@ -98,12 +98,10 @@ int main(){
     }
     else{
         cout << "failed to open the file2";
-    }   
-    }catch(std::bad_alloc & e){
-        cerr << "mode 2 " << e.what() << endl;
+
+    
+    
     }
-    
-    
     }
     //binary 读入
     if(mod == 3)
@@ -182,6 +180,7 @@ int main(){
      }
 
     //////得到v1和v2
+    try {
     if( (v1[0]!=0) && (v2[0]!=0)){
         if(v1[0]==v2[0]){
             vlen = v1[0];
@@ -246,6 +245,10 @@ int main(){
 
     delete [] v1;
     delete [] v2;
+    }
+    catch(bad_alloc & e){
+        cerr << e.what() << endl;
+    }
 
     return 0;
 }
