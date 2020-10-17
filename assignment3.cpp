@@ -10,6 +10,7 @@
 #include <ctime>
 #include <climits>
 #include <float.h>
+#include <stdexcept>
 
 #pragma GCC optimize(3, "Ofast", "inline") //O3优化，由张睿豪提供
 
@@ -50,7 +51,7 @@ int main(){
 
     //提示选择模式
     hint();
-    //选择模式
+    //选择模式：只有正确输入才会继续
     string mode;
     getline(cin,mode); 
     while(!isValid_modeinput(mode)){
@@ -58,6 +59,8 @@ int main(){
         getline(cin,mode); 
     }
     int mod = atoi(mode.c_str());
+    
+    //各种模式
 
     //退出程序
     if(mod == 0){ exit(0);} ////////////?确认用0是否合适
@@ -73,6 +76,7 @@ int main(){
     if(mod == 2)
     {
     cout << "please put the vectors into 'v1.txt' and 'v2.txt'separately" <<endl;
+    try{
     ifstream myfile1("v1.txt");
     if(myfile1.is_open()){
         cout << "read from the file1" <<endl;
@@ -95,6 +99,10 @@ int main(){
     else{
         cout << "failed to open the file2";
     }   
+    }catch(std::bad_alloc & e){
+        cerr << "mode 2 " << e.what() << endl;
+    }
+    
     
     }
     //binary 读入
