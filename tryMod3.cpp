@@ -47,15 +47,17 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
 
 int main(){
     string in1, in2; /////////用来存输入
-    int vlen = 20000000; ////两个vector里面数的个数
+    int vlen ; ////两个vector里面数的个数
     
-    float *v1 = new float[vlen+1]; // 向量1
-    float *v2 = new float[vlen+1]; // 向量2
+    //float *v1 = new float[vlen+1]; // 向量1
+    //float *v2 = new float[vlen+1]; // 向量2
+    float *v1;
+    float *v2;
     long double IDresult = 0; //五线程
     long double Dresult = 0; // 直接算
 
     //binary 读入
-    cout << "please put the vectors into two binary file 'v1.txt' and 'v2.txt'separately" <<endl;
+    cout << "please put the vectors into two binary file 'v1_b20M.txt' and 'v2_b20M.txt'separately" <<endl;
     ///read from v1.txt to get string in1
         //ifstream bfile1("v1.txt",ios::in|ios::binary);
         ifstream bfile1("v1_b20M.txt",ios::in|ios::binary);
@@ -110,10 +112,12 @@ int main(){
 
             //计算&计时
 cout << "start calculating... Please hold on a second... " <<endl;
+/*
 //////////////////五个线程
          
     cout << "calculating indirectly:" <<endl;
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
+    cout << "here?" <<endl;
 
     //五个值用来分别储存
     long double result1 =0;
@@ -147,7 +151,7 @@ cout << "start calculating... Please hold on a second... " <<endl;
    
     cout << IDresult << endl;
     cout << "(time: " << idtime << "ms)" << endl;
-
+*/
 /////////////////////直接算
     cout << "calculating directly:" <<endl;
     auto t3=std::chrono::steady_clock::now();
