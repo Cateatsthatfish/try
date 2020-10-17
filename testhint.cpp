@@ -22,6 +22,7 @@ tab -》 tab不会被存进mode里面
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <cstring>
 
 using namespace std;
 void hint();
@@ -38,21 +39,10 @@ int main()
         cout << "Invalid input! please try again!" <<endl;
         getline(cin,mode); 
     }
-    /*
-    cout << "input c" <<endl;
-    char c;
-    cin >> c;
-    cout << c;
-    */
 
-    //cout <<"mode=" <<  mode <<endl;
+    int mod = atoi(mode.c_str());
+    cout << "int mod = " << mod;
 
-    /*
-    string mode2;
-    cin >> mode2;
-    cout << "mode = " << mode <<endl;
-    cout << "mode = " << mode2 <<endl;
-    */
 
     return 0;
 }
