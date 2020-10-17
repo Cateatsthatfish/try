@@ -25,6 +25,7 @@ const int b = 1;
 using namespace std;
 
 //////需要用到的函数
+bool isValid_mode4input(string);
 
 void hint(); /////给出提示
 bool isValid_modeinput(string); ///输入模式mode的判断，只有输入0-4 （不含 空格，回车，tab）才判对
@@ -34,6 +35,7 @@ bool StringIsNull(string); //判断输入为空 ////////////////？如果是回�
 bool IsValid_m4input(int); //判断mode4中输入的数是否符合条件，先假设它是一个整数，再判断它是否大于等于零，其他情况还没想到
 string blank(string); // 去除空格
 float* tofloat(string); // 提取字符串中的float
+
 ///用于多线程计算
 void dotProduct(int startp, int endp, float* v1, float* v2, long double &result){
 
@@ -41,9 +43,6 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
         result += v1[i] * v2[i];
     }
 }
-
-
-///// 主函数
 
 int main(){
     int vlen = 0; ////两个vector里面数的个数
@@ -53,8 +52,15 @@ int main(){
     //只能进到mod4中
     //直接在程序中生成v1和v2
  
-        cout << "Please enter a positive integer 'n' to generate two n-length vectors: ";
-        cin >> vlen; //////异常处理（1、如果输入不是正整数怎么办 2、科学计数法？输入）
+        cout << "Please enter a positive integer 'n' to generate two n-length vectors: (400M is the max)";
+        string input_vlen ;
+        getline(cin,input_vlen);
+        while(!isValid_mode4input(input_vlen)){
+            cout << "Invalid input! please try again! "<<endl;
+            getline(cin,input_vlen);
+        }
+        vlen = atoi(input_vlen.c_str());
+
         //cin.get();
         float *v1 = new float[vlen+1]; // 向量1
         float *v2 = new float[vlen+1]; // 向量2
@@ -114,7 +120,6 @@ int main(){
    
     cout << result << endl;
     cout << "(time: " << time << "ms)" << endl;
-
             }
             else ///////直接算
             {
@@ -125,34 +130,34 @@ int main(){
                 cout << result << endl;
                 cout << "(time: " << time << "ms)" << endl;
             }
-
     
     }
     catch(bad_alloc & e){
         cerr << e.what() << endl;
     }
-
-
     delete [] v1;
     delete [] v2;
-    
-
-
     return 0;
 }
 
 //////函数
-void hint(){
-    cout << "please enter the two vectors whose elements are separated by \',\'" <<endl; //提示输入两个向量
-    cout << "for example: 1,2,3……" <<endl;
-    cout << "there are four modes" << endl;
-    cout << "press '1' : enter in terminal " <<endl;
-    cout << "press '2' : enter in '.txt'file " <<endl;
-    cout << "press '3' : enter in binary file" <<endl;
-    cout << "press '4' : automatically generate two random vectors  " <<endl;
-    cout << "press '0' : exit" << endl; ////////////////////怎么退出来着？
-    cout << "--------------------------------------------" <<endl;
-    cout << "press \'enter\' to continue" << endl; 
+bool isValid_mode4input(string in)
+{
+    bool len = true;
+    if(in.length()==0){
+        len = false;
+    
+    }
+    for(int i = 0 ; i< in.length();i++){
+        if(in[i]>'9'||in[i]<'0')
+        {
+            len = false;
+            break;
+        }
+    }
+       
+    
+    return len;
 }
 
 bool isValid_modeinput(string in)
