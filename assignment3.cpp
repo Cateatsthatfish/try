@@ -174,18 +174,18 @@ int main(){
     }
 
         }else{
-            cout << "invalid input 'n" <<endl;
+            cout << "invalid input \'n\'" <<endl;
         }
         
      }
 
     //////得到v1和v2
-    
+    try{
     if( (v1[0]!=0) && (v2[0]!=0)){
         if(v1[0]==v2[0]){
             vlen = v1[0];
             //计算&计时
-            cout << "starts calculating... Please hold on a second... " <<endl;
+            cout << "start calculating... Please hold on a second... " <<endl;
             if(vlen>1000000)  //////////////////五个线程
             {
                 
@@ -244,6 +244,10 @@ int main(){
     }
     else{
         cout << "no input received! "<<endl;
+    }
+    }
+    catch(bad_alloc & e){
+        cerr << e.what() << endl;
     }
 
 
