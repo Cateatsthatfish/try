@@ -98,8 +98,6 @@ int main(){
     }
     else{
         cout << "failed to open the file2";
-
-    
     
     }
     }
