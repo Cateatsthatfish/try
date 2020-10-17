@@ -39,8 +39,8 @@ int main()
     cin >> mode; /////cin在输入string之前的tab ' '和回车都会忽略掉
     while(!isValid_modeinput(mode)){
         cout << "Invalid input! please try again!" <<endl;
-        cin >> mode; /////cin在输入string之前的tab ' '和回车都会忽略掉
-        cin.sync();
+        getline(cin,mode); /////cin在输入string之前的tab ' '和回车都会忽略掉
+        //cin.sync();
         cout << "after cin.sync()" <<endl;
     }
     cout <<"mode=" <<  mode <<endl;
