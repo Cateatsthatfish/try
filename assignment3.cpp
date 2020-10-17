@@ -23,7 +23,7 @@ bool isFloat(string); //判断输入的数有没有除了float和，之外的东
 string blank(string); // 去除空格
 float* tofloat(string); // 提取字符串中的float
 ///用于多线程计算
-void dotProduct(int startp, int endp, float* v1, float* v2, float &result){
+void dotProduct(int startp, int endp, float* v1, float* v2, long double &result){
 
     for(int i = startp; i < endp; i++){
         result += v1[i] * v2[i];
@@ -120,11 +120,11 @@ int main(){
     //float result = dot_product(v1,v2,v1[0]);
     //多线程用于计算
     //五个值用来分别储存
-    float result1 =0;
-    float result2 =0;
-    float result3 =0;
-    float result4 =0;
-    float result5 =0;
+    long double result1 =0;
+    long double result2 =0;
+    long double result3 =0;
+    long double result4 =0;
+    long double result5 =0;
    
 
     int innum = v1[0];
@@ -135,28 +135,7 @@ int main(){
     int start4 = 4*innum/5;
     int start5 = innum+1;
 
-    /*
     thread first(dotProduct,1,start1,std::ref(v1),std::ref(v2),std::ref(result1));
-    first.join(); //主线程要等待子线程执行完毕
-    //cout << result1 << endl;
-
-    thread second(dotProduct,start1,start2,std::ref(v1),std::ref(v2),std::ref(result2));
-    second.join();
-    //cout << result2 << endl;
-    
-    thread third(dotProduct,start2,start3,std::ref(v1),std::ref(v2),std::ref(result3));
-    third.join();
-    //cout << result3 << endl;
-
-    thread forth(dotProduct,start3,start4,std::ref(v1),std::ref(v2),std::ref(result4));
-    forth.join();
-    //cout << result4 << endl;
-
-    thread fifth(dotProduct,start4,start5,std::ref(v1),std::ref(v2),std::ref(result5));
-    fifth.join();
-    //cout << result5 << endl;   
-    */
-      thread first(dotProduct,1,start1,std::ref(v1),std::ref(v2),std::ref(result1));
     
     //cout << result1 << endl;
 
@@ -182,7 +161,7 @@ int main(){
     forth.join();
     fifth.join();
 
-    float result = result1 + result2+result3+result4+result5;
+    long double result = result1 + result2+result3+result4+result5;
    //cout << r <<endl;
     
 
