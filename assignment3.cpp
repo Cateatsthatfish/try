@@ -183,8 +183,10 @@ int main(){
         if(v1[0]==v2[0]){
             vlen = v1[0];
             //计算&计时
-            if(v1[0]>10000000)  //////////////////五个线程
+            cout << "starts calculating... Please hold on a second... " <<endl;
+            if(vlen>1000000)  //////////////////五个线程
             {
+                
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
 
     //五个值用来分别储存
