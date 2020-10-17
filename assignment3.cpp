@@ -21,7 +21,7 @@ using namespace std;
 
 //////需要用到的函数
 
-int hint(); /////给出提示，返回输入模式
+void hint(); /////给出提示，返回输入模式
 ///1 退出的实现
 ///2 判断异常的输入->返回为零
 //（1）除了0-4之外的字符（2）tab，空格，回车（3）复制的string?
@@ -52,7 +52,9 @@ int main(){
     long double result = 0; //点乘的结果
 
     //提示选择模式
-    int mod = hint();
+    hint();
+    int mod;
+    cin >> mod;
     /////////////////考虑mode不等于0，1，2，3，4或者控制mode只能等于0，1，2，3，4
     //退出程序
     if(mod == 0){ exit(0);} ////////////?确认用0是否合适
@@ -236,22 +238,17 @@ int main(){
     return 0;
 }
 
-int hint(){
-    cout << "hint: please enter the two vectors whose elements are separated by ',':" <<endl; //提示输入两个向量
+void hint(){
+    cout << "please enter the two vectors whose elements are separated by \',\'" <<endl; //提示输入两个向量
     cout << "for example: 1,2,3……" <<endl;
-    cout << "there are four modes to enter" << endl;
+    cout << "there are four modes" << endl;
     cout << "press '1' : enter in terminal " <<endl;
     cout << "press '2' : enter in '.txt'file " <<endl;
     cout << "press '3' : enter in binary file" <<endl;
-    cout << "press '4' : automatically generate two random vectors : " <<endl;
+    cout << "press '4' : automatically generate two random vectors  " <<endl;
     cout << "press '0' : exit" << endl; ////////////////////怎么退出来着？
 
-    /////////////////////////选择模型
-    int mode = cin.get();/////////////////////////////////考虑输入异常情况（数值不对，空格回车tab）
-    /*switch(mode){
-        case 1: 
-    }*/
-    return mode;
+    //return mode;
 }
 
 bool StringIsNull(string str){
