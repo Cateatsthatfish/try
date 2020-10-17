@@ -28,11 +28,22 @@ int main()
 {
     hint();
     string mode;
+    /*
     do{
         cin >> mode; /////cin在输入string之前的tab ' '和回车都会忽略掉
+        cout << "Invalid input! please try again!" <<endl;
 
     }while(!isValid_modeinput(mode));
-    cout <<mode <<endl;
+    */
+
+    cin >> mode; /////cin在输入string之前的tab ' '和回车都会忽略掉
+    while(!isValid_modeinput(mode)){
+        cout << "Invalid input! please try again!" <<endl;
+        cin >> mode; /////cin在输入string之前的tab ' '和回车都会忽略掉
+        cin.sync();
+        cout << "after cin.sync()" <<endl;
+    }
+    cout <<"mode=" <<  mode <<endl;
     //cin.sync(); ///清空缓冲区(不知道有没有必要)
 
     /*
