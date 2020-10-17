@@ -14,7 +14,7 @@ void GetSumT(vector<int>::iterator first,vector<int>::iterator last,int &result)
     result = accumulate(first,last,0); //调用C++标准库算法
 }
 
-void dotProduct(int startp, int endp, float* v1, float* v2, float &result){
+void dotProduct(int startp, int endp, float* v1, float* v2, long double &result){
 
     for(int i = startp; i < endp; i++){
         result += v1[i] * v2[i];
@@ -119,7 +119,7 @@ int main() //主线程
 
 
     auto t3 = std::chrono::steady_clock::now(); 
-    /*
+    
     thread first(dotProduct,1,start1,std::ref(v1),std::ref(v2),std::ref(result1));
     first.join(); //主线程要等待子线程执行完毕
     //cout << result1 << endl;
@@ -139,7 +139,8 @@ int main() //主线程
     thread fifth(dotProduct,start4,start5,std::ref(v1),std::ref(v2),std::ref(result5));
     fifth.join();
     //cout << result5 << endl;   
-    */
+    
+   #if 0
    thread first(dotProduct,1,start1,std::ref(v1),std::ref(v2),std::ref(result1));
     
     cout << result1 << endl;
@@ -165,7 +166,7 @@ int main() //主线程
     third.join();
     forth.join();
     fifth.join();
-
+#endif
 
 
    /*
