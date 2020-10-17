@@ -14,6 +14,10 @@ tab -》 tab不会被存进mode里面
 
 */
 
+// 含tab ->视为无效
+// 只有enter -> 视为无效
+// 空格 -> 视为无效
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -28,23 +32,20 @@ int main()
 {
     hint();
     string mode;
-    /*
-    do{
-        cin >> mode; /////cin在输入string之前的tab ' '和回车都会忽略掉
-        cout << "Invalid input! please try again!" <<endl;
 
-    }while(!isValid_modeinput(mode));
-    */
-
-    cin >> mode; /////cin在输入string之前的tab ' '和回车都会忽略掉
+    getline(cin,mode); 
     while(!isValid_modeinput(mode)){
         cout << "Invalid input! please try again!" <<endl;
-        getline(cin,mode); /////cin在输入string之前的tab ' '和回车都会忽略掉
-        //cin.sync();
-        cout << "after cin.sync()" <<endl;
+        getline(cin,mode); 
     }
-    cout <<"mode=" <<  mode <<endl;
-    //cin.sync(); ///清空缓冲区(不知道有没有必要)
+    /*
+    cout << "input c" <<endl;
+    char c;
+    cin >> c;
+    cout << c;
+    */
+
+    //cout <<"mode=" <<  mode <<endl;
 
     /*
     string mode2;
@@ -55,13 +56,17 @@ int main()
 
     return 0;
 }
-bool isValid_modeinput(string m_in)
+bool isValid_modeinput(string in)
 {
-    string in = blank(m_in); //////空格后面如果还有输入就不要了
+    
+    //string in = blank(m_in); //////空格后面如果还有输入就不要了
+    //cout << "after blank： " << in <<endl;
     bool right_mode = false;
     ///除掉空格和tab？
+    //cout << "in.length() = " << in.length() <<endl;
     if(in.length()==1){
-        if(in[0]<='4'&& m_in[0]>='0')
+        //cout << "in loop" <<endl;
+        if(in[0]<='4'&& in[0]>='0')
         {
             right_mode = true;
         }
