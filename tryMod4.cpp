@@ -52,7 +52,7 @@ int main(){
     //只能进到mod4中
     //直接在程序中生成v1和v2
  
-        cout << "Please enter a positive integer 'n' to generate two n-length vectors: (400M is the max)";
+        cout << "Please enter a positive integer 'n' to generate two n-length vectors(500M is the max): ";
         string input_vlen ;
         getline(cin,input_vlen);
         while(!isValid_mode4input(input_vlen)){
@@ -149,7 +149,7 @@ bool isValid_mode4input(string in)
     
     }
     for(int i = 0 ; i< in.length();i++){
-        if(in[i]>'9'||in[i]<'0')
+        if(in[i]>'9'||in[i]<'1')
         {
             len = false;
             break;
