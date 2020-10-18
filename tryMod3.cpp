@@ -112,7 +112,9 @@ int main(){
 
             //计算&计时
 cout << "start calculating... Please hold on a second... " <<endl;
-/*
+
+if(v1[0]==v2[0]){
+
 //////////////////五个线程
          
     cout << "calculating indirectly:" <<endl;
@@ -151,7 +153,7 @@ cout << "start calculating... Please hold on a second... " <<endl;
    
     cout << IDresult << endl;
     cout << "(time: " << idtime << "ms)" << endl;
-*/
+
 /////////////////////直接算
     cout << "calculating directly:" <<endl;
     auto t3=std::chrono::steady_clock::now();
@@ -160,7 +162,10 @@ cout << "start calculating... Please hold on a second... " <<endl;
     double dtime=std::chrono::duration<double,std::milli>(t4-t3).count();
     cout << Dresult << endl;
     cout << "(time: " << dtime << "ms)" << endl;
-                
+}
+else{
+    cout << "no the same length!" <<endl;
+}
     delete [] v1;
     delete [] v2;
     
