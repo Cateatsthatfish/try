@@ -62,6 +62,7 @@ int main(){
         //ifstream bfile1("v1.txt",ios::in|ios::binary);
         //ifstream bfile1("v1_b20M.txt",ios::in|ios::binary);
         ifstream bfile1("v1_b20M.dat",ios::in|ios::binary);
+        //ifstream bfile1("v1_b200M.dat",ios::in|ios::binary);
         if(!bfile1){
             cout << "Oops! file\" v1.txt \" failed to open." << endl;}
         else{
@@ -74,6 +75,7 @@ int main(){
         //ifstream bfile2("v2.txt",ios::in|ios::binary);
         //ifstream bfile2("v2_b20M.txt",ios::in|ios::binary);
         ifstream bfile2("v2_b20M.dat",ios::in|ios::binary);
+        //ifstream bfile2("v2_b200M.dat",ios::in|ios::binary);
         if(!bfile2){
             cout << "Oops! file\" v2.txt \" failed to open." << endl;}
         else{
