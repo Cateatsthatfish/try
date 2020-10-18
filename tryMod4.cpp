@@ -148,8 +148,11 @@ bool isValid_mode4input(string in)
         len = false;
     
     }
+    if(in[0]==0){
+        len = false;
+    }
     for(int i = 0 ; i< in.length();i++){
-        if(in[i]>'9'||in[i]<'1')
+        if(in[i]>'9'||in[i]<'0')
         {
             len = false;
             break;
