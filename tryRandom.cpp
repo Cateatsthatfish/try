@@ -5,8 +5,8 @@
 #include <iostream>
 
 using namespace std;
-const int a = 1;
-const int b = 2;
+const int a = INT_MIN/2;
+const int b = INT_MAX/2;
 
 int main(){
     float * v1 = new float;
