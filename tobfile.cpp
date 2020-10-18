@@ -33,7 +33,9 @@ file v2 is open.
     QueryPerformanceCounter(&nBeginTime); 
 
     //FILE * fp = fopen("v1.txt", "wb");
-    FILE * fp = fopen("v1_b20M.txt", "wb");
+    //FILE * fp = fopen("v1_b20M.txt", "wb");
+    FILE * fp = fopen("v1_b20M.dat", "wb");
+
     //v1中生成随机数
     if(fp)
     {
@@ -57,7 +59,8 @@ file v2 is open.
     }
 
     //fp = fopen("v2.txt", "wb");
-    fp = fopen("v2_b20M.txt", "wb");
+    //fp = fopen("v2_b20M.txt", "wb");
+     fp = fopen("v2_b20M.dat", "wb");
     //v2中生成随机数
     if(fp)
     {
@@ -65,7 +68,7 @@ file v2 is open.
     //读入随机数
     
     //for (int i = 0; i < 200000000; i++) 
-    //for (int i = 0; i < 20000000; i++) 
+    for (int i = 0; i < 20000000; i++) 
     {
         
         float r1 = a + rand()%(b-a) + rand()/double(RAND_MAX);
