@@ -16,6 +16,7 @@
 
 
 using namespace std;
+bool isValid_mode1input(string);
 
 //////需要用到的函数
 
@@ -77,9 +78,6 @@ int main(){
     }
     
 
-
-    //////得到v1和v2
-    //try{
     if( (v1[0]!=0) && (v2[0]!=0)){ //判断输入是否为零
         if(v1[0]==v2[0]){ //判断长度是否相当
             vlen = v1[0];
@@ -144,17 +142,10 @@ int main(){
     else{
         cout << "no input received! "<<endl;
     }
-    /*}
-    catch(bad_alloc & e){
-        cerr << e.what() << endl;
-    }*/
-
 
     delete [] v1;
     delete [] v2;
     
-
-
     return 0;
 }
 
@@ -252,4 +243,26 @@ bool isFloat(string in){
         }
     }
     return back;
+}
+
+bool isValid_mode1input(string str){
+    /////在去掉空格之后且长度不为零的时候
+    //////逗号之间
+    //////最多只有在中间一个.
+    //////最多只有在开头有一个负号
+    //////不能为空
+    //////科学计数法
+    //////1.1e+3
+    //////1.1e3
+    int len = str.length();
+    if(str[len-1]!=','){
+    str = str + ","; }
+
+    int preComma = 0; //前一个句号
+    int posComma; //后一个句号
+    //int 
+    for(int i = 0; i< str.length();i++){
+        //if
+    }
+    return true;
 }
