@@ -59,8 +59,8 @@ int main(){
     //binary 读入
     cout << "please put the vectors into two binary file 'v1_b20M.txt' and 'v2_b20M.txt'separately" <<endl;
     ///read from v1.txt to get string in1
-        //ifstream bfile1("v1.txt",ios::in|ios::binary);
-        ifstream bfile1("v1_b20M.txt",ios::in|ios::binary);
+        ifstream bfile1("v1.txt",ios::in|ios::binary);
+        //ifstream bfile1("v1_b20M.txt",ios::in|ios::binary);
         if(!bfile1){
             cout << "Oops! file\" v1.txt \" failed to open." << endl;}
         else{
@@ -70,8 +70,8 @@ int main(){
         bfile1.close();
         }
     ///read from v2.txt to get string in2
-        //ifstream bfile2("v2.txt",ios::in|ios::binary);
-        ifstream bfile2("v2_b20M.txt",ios::in|ios::binary);
+        ifstream bfile2("v2.txt",ios::in|ios::binary);
+        //ifstream bfile2("v2_b20M.txt",ios::in|ios::binary);
         if(!bfile2){
             cout << "Oops! file\" v2.txt \" failed to open." << endl;}
         else{
