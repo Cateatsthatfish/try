@@ -115,11 +115,12 @@ cout << "start calculating... Please hold on a second... " <<endl;
 
 if(v1[0]==v2[0]){
 
+    vlen = v1[0];
 //////////////////五个线程
          
     cout << "calculating indirectly:" <<endl;
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
-    cout << "here?" <<endl;
+    //cout << "here?" <<endl;
 
     //五个值用来分别储存
     long double result1 =0;
