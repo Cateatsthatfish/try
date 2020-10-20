@@ -1,10 +1,15 @@
 #include <iostream>
 using namespace std;
+bool isValid_mode1input(string str);
+
 int main(){
+    string dot = "1..1";
+    cout <<  isValid_mode1input(dot) <<endl;
     return 0;
 }
 
 bool isValid_mode1input(string str){
+    cout << "in function ! " <<endl;
     bool format = true;
     /////已有条件：在去掉空格之后且长度不为零的时候
     //////逗号之间：（逗号的个数等于总共的元素的个数，float*中的元素的个数为n+1）
@@ -17,8 +22,9 @@ bool isValid_mode1input(string str){
     //////1E3
 
     ///在最末尾加上，如果没有的话
-    int len = str.length();
-    if(str[len-1]!=','){
+    
+    if(str[str.length()-1]!=','){
+       // cout << "no comma!" << endl;
     str = str + ","; }
 
     int preComma = -1; //前一个逗号
@@ -28,10 +34,14 @@ bool isValid_mode1input(string str){
     int imis; //index of minus
     int nmis = 0; // num of minus between two comma
 
-    //int 
-    for(int i = 0; i< len;i++){
+    
+    for(int i = 0; i< str.length();i++){
+       // cout << "in loop!" <<endl;
         if(str[i]==','){
             posComma = i;
+            cout << "i=" <<i <<endl;
+            cout << "preComma=" << preComma <<endl;
+            cout << "posComma=" << posComma <<endl;
             
         
         for(int j = preComma+1; j < posComma; i++){
@@ -39,16 +49,13 @@ bool isValid_mode1input(string str){
                 ndot = ndot + 1;
                 idot = i;
             }
-            if(str[j] == '-'){
-
-            }
+            //if(str[j] == '-'){}
         }
-
-
-        
+        cout << "number of dots: " <<  ndot << endl;
         if(ndot > 1){
             format = false;
-            return format;
+            cout << "format = " << format << endl;
+            //return format;
         }
 
         
