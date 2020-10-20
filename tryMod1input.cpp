@@ -107,6 +107,13 @@ bool isValid_mode1input(string str){
             if(nplus > 1 || nmis > 1 ){
                 return false;
             }
+            if(nplus == 1 && iplus != preComma +1){
+                return false;
+            }
+            if(nmis == 1 && imis != preComma +1){
+                return false;
+            }
+
         }
 
         if(ndot > 1 || nsci > 1 || nplus > 1){
