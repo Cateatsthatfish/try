@@ -44,13 +44,14 @@ bool isValid_mode1input(string str){
             cout << "posComma=" << posComma <<endl;
             
         
-        for(int j = preComma+1; j < posComma; i++){
+        for(int j = preComma+1; j < posComma; j++){
             if(str[j] == '.'){
                 ndot = ndot + 1;
-                idot = i;
+                idot = j;
             }
             //if(str[j] == '-'){}
         }
+
         cout << "number of dots: " <<  ndot << endl;
         if(ndot > 1){
             format = false;
