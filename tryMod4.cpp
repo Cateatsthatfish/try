@@ -47,6 +47,8 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
 int main(){
     int vlen = 0; ////两个vector里面数的个数
     long double result = 0; //点乘的结果
+    long double IDresult = 0; //五线程
+    long double Dresult = 0; // 直接算   
 
  
     //只能进到mod4中
@@ -80,11 +82,13 @@ int main(){
     }
 
     cout << "start calculating... Please hold on a second... " <<endl;
-    
-    if(vlen>1000000)  //////////////////五个线程
-            {
-                
+
+    vlen = v1[0];
+//////////////////五个线程
+    if(vlen>100000){
+    cout << "calculating indirectly:" <<endl;
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
+    //cout << "here?" <<endl;
 
     //五个值用来分别储存
     long double result1 =0;
@@ -92,8 +96,6 @@ int main(){
     long double result3 =0;
     long double result4 =0;
     long double result5 =0;
-   
-    //int innum = v1[0];
 
     int start1 = vlen/5;
     int start2 = 2*vlen/5;
@@ -113,28 +115,27 @@ int main(){
     forth.join();
     fifth.join();
 
-    result = result1 + result2+result3+result4+result5;
+    IDresult = result1 + result2+result3+result4+result5;
     auto t2=std::chrono::steady_clock::now();
     //毫秒级
-    double time=std::chrono::duration<double,std::milli>(t2-t1).count();
+    double idtime=std::chrono::duration<double,std::milli>(t2-t1).count();
    
-    cout << result << endl;
-    cout << "(time: " << time << "ms)" << endl;
-            }
-            else ///////直接算
-            {
-                auto t1=std::chrono::steady_clock::now();
-                result = dot_product(v1,v2,vlen);
-                auto t2=std::chrono::steady_clock::now();
-                double time=std::chrono::duration<double,std::milli>(t2-t1).count();
-                cout << result << endl;
-                cout << "(time: " << time << "ms)" << endl;
-            }
-    
+    cout << IDresult << endl;
+    cout << "(time: " << idtime << "ms)" << endl;
     }
+
+/////////////////////直接算
+    cout << "calculating directly:" <<endl;
+    auto t3=std::chrono::steady_clock::now();
+    Dresult = dot_product(v1,v2,vlen);
+    auto t4=std::chrono::steady_clock::now();
+    double dtime=std::chrono::duration<double,std::milli>(t4-t3).count();
+    cout << Dresult << endl;
+    cout << "(time: " << dtime << "ms)" << endl;}
     catch(bad_alloc & e){
         cerr << e.what() << endl;
     }
+
     delete [] v1;
     delete [] v2;
     return 0;
