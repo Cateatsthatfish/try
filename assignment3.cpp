@@ -15,13 +15,13 @@
 #pragma GCC optimize(3, "Ofast", "inline") //O3优化，由张睿豪提供
 
 /////随机数范围
-/*
+
 const int a = INT_MIN/2;
 const int b = INT_MAX/2;
-*/
+/*
 const int a = -1;
 const int b = 1;
-
+*/
 using namespace std;
 
 ////模式判断
@@ -52,11 +52,9 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
 
 int main(){
     string in1, in2; /////////用来存输入
-    int vlen = 0; ////两个vector里面数的个数
-    ////////////////////////记得delete float!!!!!!!!!!!!!!!
-    float *v1 = new float; // 向量1
-    float *v2 = new float; // 向量2
-    long double result = 0; //点乘的结果
+    int vlen = 0; ////两个vector里面数的个数   
+    long double IDresult = 0; //五线程
+    long double Dresult = 0; // 直接算
 
     //提示选择模式
     hint();
@@ -73,41 +71,51 @@ int main(){
 
     //退出程序
     if(mod == 0){ exit(0);} 
-    //terminal 读入
-    if(mod == 1) 
+
+    if(mod == 1 || mod == 2 || mod == 3) 
     { 
+    float *v1 = new float; // 向量1
+    float *v2 = new float; // 向量2
+
 
     }
-    //txt 读入
-    if(mod == 2)
+    
+    if(mod == 4 ){
+                cout << "Please enter a positive integer 'n' to generate two n-length vectors(500M is the max): ";
+        string input_vlen ;
+        getline(cin,input_vlen);
+        while(!isValid_mode4input(input_vlen)){
+            cout << "Invalid input! please try again! "<<endl;
+            getline(cin,input_vlen);
+        }
+        vlen = atoi(input_vlen.c_str());
+
+        //cin.get();
+        float *v1 = new float[vlen+1]; // 向量1
+        float *v2 = new float[vlen+1]; // 向量2
+       
+        //因为float 比 int范围大所以可以把长度放在第一位
+
+        v1[0] = vlen;
+        v2[0] = vlen;
+
+        srand((int)time(0));
+        ///把数存入v1和v2
+        try{
+        for (int i = 1; i < vlen+1; i++) 
     {
-    
+         v1[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
+         v2[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
     }
-    //binary 读入
-    if(mod == 3)
-    {
-        
-    }
-    
-    //string 转float
-    //如果没有进入mode1，2，3 in1 和in2就都会是零
-    //那么v1和v2还都什么都没有
-    
-    if(mod == 4){
 
-     }
+    cout << "start calculating... Please hold on a second... " <<endl;
 
-    //////得到v1和v2
-    //try{
-    if( (v1[0]!=0) && (v2[0]!=0)){
-        if(v1[0]==v2[0]){
-            vlen = v1[0];
-            //计算&计时
-            cout << "start calculating... Please hold on a second... " <<endl;
-            if(vlen>1000000)  //////////////////五个线程
-            {
-                
+    vlen = v1[0];
+//////////////////五个线程
+    if(vlen>5){
+    cout << "calculating indirectly:" <<endl;
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
+    //cout << "here?" <<endl;
 
     //五个值用来分别储存
     long double result1 =0;
@@ -115,8 +123,6 @@ int main(){
     long double result3 =0;
     long double result4 =0;
     long double result5 =0;
-   
-    //int innum = v1[0];
 
     int start1 = vlen/5;
     int start2 = 2*vlen/5;
@@ -136,41 +142,39 @@ int main(){
     forth.join();
     fifth.join();
 
-    result = result1 + result2+result3+result4+result5;
+    IDresult = result1 + result2+result3+result4+result5;
     auto t2=std::chrono::steady_clock::now();
     //毫秒级
-    double time=std::chrono::duration<double,std::milli>(t2-t1).count();
+    double idtime=std::chrono::duration<double,std::milli>(t2-t1).count();
    
-    cout << result << endl;
-    cout << "(time: " << time << "ms)" << endl;
-
-            }
-            else ///////直接算
-            {
-                auto t1=std::chrono::steady_clock::now();
-                result = dot_product(v1,v2,vlen);
-                auto t2=std::chrono::steady_clock::now();
-                double time=std::chrono::duration<double,std::milli>(t2-t1).count();
-                cout << result << endl;
-                cout << "(time: " << time << "ms)" << endl;
-            }
-
-        }
-        else{
-           cout << "the two vectors do not have the same length" <<endl;
-        }
+    cout << IDresult << endl;
+    cout << "(time: " << idtime << "ms)" << endl;
     }
-    else{
-        cout << "no input received! "<<endl;
-    }
-    /*}
+
+/////////////////////直接算
+    cout << "calculating directly:" <<endl;
+    auto t3=std::chrono::steady_clock::now();
+    Dresult = dot_product(v1,v2,vlen);
+    auto t4=std::chrono::steady_clock::now();
+    double dtime=std::chrono::duration<double,std::milli>(t4-t3).count();
+    cout << Dresult << endl;
+    cout << "(time: " << dtime << "ms)" << endl;}
     catch(bad_alloc & e){
         cerr << e.what() << endl;
-    }*/
-
+    }
 
     delete [] v1;
     delete [] v2;
+    
+
+
+     }
+
+
+
+
+    //delete [] v1;
+    //delete [] v2;
     
 
 
