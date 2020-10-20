@@ -85,7 +85,7 @@ int main(){
 
     vlen = v1[0];
 //////////////////五个线程
-    if(vlen>100000){
+    if(vlen>5){
     cout << "calculating indirectly:" <<endl;
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
     //cout << "here?" <<endl;

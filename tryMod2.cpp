@@ -49,9 +49,6 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
 int main(){
     string in1, in2; /////////用来存输入
     int vlen ; ////两个vector里面数的个数
-    
-    //float *v1 = new float[vlen+1]; // 向量1
-    //float *v2 = new float[vlen+1]; // 向量2
     float *v1;
     float *v2;
     long double IDresult = 0; //五线程
@@ -60,8 +57,8 @@ int main(){
     //txt 读入
     cout << "please put the vectors into 'v1.txt' and 'v2.txt'separately" <<endl;
     
-    //ifstream myfile1("v1_T20M.txt");
-    ifstream myfile1("v1_test.txt");
+    ifstream myfile1("v1_T20M.txt");
+    //ifstream myfile1("v1_test.txt");
     if(myfile1.is_open()){
         cout << "read from the file1" <<endl;
         getline(myfile1,in1);
@@ -73,8 +70,8 @@ int main(){
     }
     //cout << in1 <<endl;
 
-    //ifstream myfile2("v2_T20M.txt");
-    ifstream myfile2("v2_test.txt");
+    ifstream myfile2("v2_T20M.txt");
+    //ifstream myfile2("v2_test.txt");
     if(myfile2.is_open()){
         cout << "read from the file2" <<endl;
         getline(myfile2,in2);
@@ -95,22 +92,15 @@ int main(){
     string str1, str2;
     str1 = blank(in1);
     str2 = blank(in2);
-        if(isFloat(in1) && isFloat(in2) && isValid_mode1input(str1) && isValid_mode1input(str2)) //合理性验证待更新
+        if(isFloat(str1) && isFloat(str2) && isValid_mode1input(str1) && isValid_mode1input(str2)) //合理性验证待更新
         {
-
-    // 去除空格
 
     
     // string -> float*
     //分割标志：‘，’
      v1 = tofloat(str1);
      v2 = tofloat(str2);
-        
-    
-
-
-            //计算&计时
-
+ 
 
 if(v1[0]==v2[0]){
     cout << "start calculating... Please hold on a second... " <<endl;
