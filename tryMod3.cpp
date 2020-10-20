@@ -99,31 +99,25 @@ int main(){
         {
 
     // 去除空格
-    
+
     
     // string -> float*
     //分割标志：‘，’
      v1 = tofloat(str1);
      v2 = tofloat(str2);
-        }else{
-            cout << "invalid inputs!" << endl; 
-        }
-    }
-    else{
         
-        cout << "no input received! "<<endl;
-    }
     
 
 
             //计算&计时
-cout << "start calculating... Please hold on a second... " <<endl;
+
 
 if(v1[0]==v2[0]){
+    cout << "start calculating... Please hold on a second... " <<endl;
 
     vlen = v1[0];
 //////////////////五个线程
-         
+    if(vlen>100){
     cout << "calculating indirectly:" <<endl;
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
     //cout << "here?" <<endl;
@@ -160,6 +154,7 @@ if(v1[0]==v2[0]){
    
     cout << IDresult << endl;
     cout << "(time: " << idtime << "ms)" << endl;
+    }
 
 /////////////////////直接算
     cout << "calculating directly:" <<endl;
@@ -173,6 +168,16 @@ if(v1[0]==v2[0]){
 else{
     cout << "no the same length!" <<endl;
 }
+
+}
+        else{
+            cout << "invalid inputs!" << endl; 
+        }
+    }
+    else{
+        
+        cout << "no input received! "<<endl;
+    }
     delete [] v1;
     delete [] v2;
     
