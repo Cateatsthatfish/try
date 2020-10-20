@@ -25,8 +25,36 @@ int main(){
    /*
    string commas = "1,,1.1";
    cout << isValid_mode1input(commas) ;*/
+
+   /*
    string plus = "++1";
    cout << isValid_mode1input(plus) ;
+   */
+
+    string sci1 = "3e+1";
+    string sci2 = "3e1";
+    string sci3 = "3E-1";
+    string sci4 = "3.0e+2";
+    string sci5 = "-3e-1";
+    string sci6 = "-3e--1";
+    
+    string ap1 = "+-1,2";
+    string ap2 = "--1,3.9";
+    string ap3 = "-1";
+    string ap4 = "+2";
+    string ap5 = "2-";
+    string ap6 = "3+,4";
+    string ap7 = "1,2+";
+    cout << isValid_mode1input(ap1) << " " << endl;
+    cout << isValid_mode1input(ap2) << " " << endl;
+    cout << isValid_mode1input(ap3) << " " << endl;
+    cout << isValid_mode1input(ap4) << " " << endl;
+    cout << isValid_mode1input(ap5) << " " << endl;
+    cout << isValid_mode1input(ap6) << " " << endl;
+    cout << isValid_mode1input(ap7) << " " << endl;
+
+
+    
 
 
     
@@ -46,6 +74,7 @@ bool isValid_mode1input(string str){
     //////1.1e+3
     //////1.1e3
     //////1E3
+    ///////零在最前面
 
     ///在最末尾加上，如果没有的话
     
@@ -104,7 +133,10 @@ bool isValid_mode1input(string str){
         //cout << "number of dots: " <<  ndot << endl;
         if(sci == true){}
         else{
-            if(nplus > 1 || nmis > 1 ){
+            if(nplus + nmis > 1 ){
+                return false;
+            }
+            if(nplus == 1 && iplus != preComma +1){
                 return false;
             }
         
