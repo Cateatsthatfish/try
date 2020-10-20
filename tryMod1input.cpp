@@ -37,7 +37,15 @@ int main(){
     string sci4 = "3.0e+2";
     string sci5 = "-3e-1";
     string sci6 = "-3e--1";
+    string sci7 = "3-e";
     
+    string test1 = "1...1,1.1,1.,2,.1,eE,22e+1,1,,1.1,++1,3.0e+2,-3e--1,3-e,--1,3.9,3+,4" ;
+    cout << isValid_mode1input(test1) <<endl;
+    string test2 = "3e+1,3e1,3E-1,3.0e+2,-3e-1,-1";
+    cout << isValid_mode1input(test2) <<endl;
+
+
+    /*
     string ap1 = "+-1,2";
     string ap2 = "--1,3.9";
     string ap3 = "-1";
@@ -52,6 +60,16 @@ int main(){
     cout << isValid_mode1input(ap5) << " " << endl;
     cout << isValid_mode1input(ap6) << " " << endl;
     cout << isValid_mode1input(ap7) << " " << endl;
+    */
+   
+   /*cout << isValid_mode1input(sci1) << " " << endl;
+    cout << isValid_mode1input(sci2) << " " << endl;
+    cout << isValid_mode1input(sci3) << " " << endl;
+    cout << isValid_mode1input(sci4) << " " << endl;
+    cout << isValid_mode1input(sci5) << " " << endl;
+    cout << isValid_mode1input(sci6) << " " << endl;
+    cout << isValid_mode1input(sci7) << " " << endl;
+    */
 
 
     
@@ -137,16 +155,26 @@ bool isValid_mode1input(string str){
             if(nplus + nmis > 2 ){
                 return false;
             }
+            for(int k = 0; k < nplus; k++){
+                if(iplus[k]!=preComma+1 && iplus[k]!= isci+1){
+                    return false;
+                }
+            }
+             for(int k = 0; k < nmis; k++){
+                if(imis[k]!=preComma+1 && imis[k]!= isci+1){
+                    return false;
+                }
+            }
         }
         else{
             if(nplus + nmis > 1 ){
                 return false;
             }
-            if(nplus == 1 && iplus != preComma +1){
+            if(nplus == 1 && iplus[0] != preComma +1){
                 return false;
             }
         
-            if(nmis == 1 && imis != preComma +1){
+            if(nmis == 1 && imis[0] != preComma +1){
                 return false;
             }
 
