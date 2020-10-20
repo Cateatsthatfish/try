@@ -9,11 +9,28 @@ int main(){
     /*string dot = "1.1,2.1";
     cout <<  isValid_mode1input(dot) <<endl;*/
 
+    /*
     string dot1 = "1.,2";
     cout <<  isValid_mode1input(dot1) <<endl;
 
     string dot2 = ".1";
     cout <<  isValid_mode1input(dot2) <<endl;
+    */
+
+   /*
+    string sci1 = "eE";
+    string sci2 = "22e+1";
+    cout << isValid_mode1input(sci1) << " " << isValid_mode1input(sci2) << endl;
+    */
+   /*
+   string commas = "1,,1.1";
+   cout << isValid_mode1input(commas) ;*/
+   string plus = "++1";
+   cout << isValid_mode1input(plus) ;
+
+
+    
+
     return 0;
 }
 
@@ -42,8 +59,11 @@ bool isValid_mode1input(string str){
     int ndot = 0; // num of dot between two comma
     int imis; //index of minus
     int nmis = 0; // num of minus between two comma
-    int isci = 0; // 科学计数法的坐标（E）
+    int iplus ;
+    int nplus  = 0;
+    int isci ; // 科学计数法的坐标（E）
     int nsci = 0; // 科学计数法的的个数（e）
+    bool sci = false;
 
 
     
@@ -67,13 +87,23 @@ bool isValid_mode1input(string str){
             if(str[j]=='e'||str[j] == 'E'){
                 nsci = nsci + 1 ;
                 isci = j;
+                sci = true;
             }
+            if (str[j] == '-'){
+                nmis = nmis + 1 ;
+                imis = j;
+            }
+            if (str[j] == '+'){
+                nplus = nplus +1 ;
+                iplus = j;
+            }
+            
             //if(str[j] == '-'){}
         }
 
         //cout << "number of dots: " <<  ndot << endl;
 
-        if(ndot > 1 || nsci > 1){
+        if(ndot > 1 || nsci > 1 || nplus > 1){
             //format = false;
             //cout << "format = " << format << endl;
             return false;
