@@ -84,6 +84,36 @@ int main(){
     getline(cin,in2);
     }
 
+    if(mod == 2){
+            //txt 读入
+    cout << "please put the vectors into 'v1.txt' and 'v2.txt'separately" <<endl;
+    
+    ifstream myfile1("v1_T20M.txt");
+    //ifstream myfile1("v1_test.txt");
+    if(myfile1.is_open()){
+        cout << "read from the file1" <<endl;
+        getline(myfile1,in1);
+        //cout <<frofile <<endl;
+        myfile1.close();
+    }
+    else{
+        cout << "failed to open the file1";
+    }
+    //cout << in1 <<endl;
+
+    ifstream myfile2("v2_T20M.txt");
+    //ifstream myfile2("v2_test.txt");
+    if(myfile2.is_open()){
+        cout << "read from the file2" <<endl;
+        getline(myfile2,in2);
+        //cout << <<endl;
+        myfile2.close();
+    }
+    else{
+        cout << "failed to open the file2";
+    
+    }
+    }
     //calculate
     //string 转float
     if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
