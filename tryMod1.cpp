@@ -22,7 +22,7 @@ bool isValid_mode1input(string);
 
 void hint(); /////给出提示
 bool isValid_modeinput(string); ///输入模式mode的判断，只有输入0-4 （不含 空格，回车，tab）才判对
-long double dot_product(float*, float*,int); // 计算向量 //这里需要改成long double计算大数值
+long double dot_product(float*, float*,int); // 计算向量 /
 bool isFloat(string); //判断输入的数有没有除了float和，之外的东西
 bool StringIsNull(string); //判断输入为空 ////////////////？如果是回车怎么办？
 bool IsValid_m4input(int); //判断mode4中输入的数是否符合条件，先假设它是一个整数，再判断它是否大于等于零，其他情况还没想到
@@ -56,13 +56,14 @@ int main(){
     //string 转float
     if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
     {
-        if(isFloat(in1) && isFloat(in2)) //合理性验证待更新
-        {
-
-    // 去除空格
     string str1, str2;
     str1 = blank(in1);
     str2 = blank(in2);
+        if(isFloat(in1) && isFloat(in2) && isValid_mode1input(str1) && isValid_mode1input(str2)) //合理性验证
+        {
+
+    // 去除空格->可能要放在验证前面
+    
     
     // string -> float*
     //分割标志：‘，’
@@ -246,23 +247,129 @@ bool isFloat(string in){
 }
 
 bool isValid_mode1input(string str){
-    /////在去掉空格之后且长度不为零的时候
-    //////逗号之间
-    //////最多只有在中间一个.
+    //cout << "in function ! " <<endl;
+    //bool format = true;
+    /////已有条件：在去掉空格之后且长度不为零的时候
+    //////逗号之间：（逗号的个数等于总共的元素的个数，float*中的元素的个数为n+1）
+    //////最多只有在中间一个.[实现]
     //////最多只有在开头有一个负号
-    //////不能为空
-    //////科学计数法
+    //////不能为空[实现]
+    //////科学计数法(中间可以有负号)
     //////1.1e+3
     //////1.1e3
-    int len = str.length();
-    if(str[len-1]!=','){
+    //////1E3
+    ///////零在最前面
+
+    ///在最末尾加上，如果没有的话
+    
+    if(str[str.length()-1]!=','){
+       // cout << "no comma!" << endl;
     str = str + ","; }
 
-    int preComma = 0; //前一个句号
-    int posComma; //后一个句号
-    //int 
+    int preComma = -1; //前一个逗号
+    int posComma; //后一个逗号
+    int idot; //index of dot
+    int ndot = 0; // num of dot between two comma
+    int imis[2]; //index of minus
+    int nmis = 0; // num of minus between two comma
+    int iplus[2] ;
+    int nplus  = 0;
+    int isci ; // 科学计数法的坐标（E）
+    int nsci = 0; // 科学计数法的的个数（e）
+    bool sci = false;
+
+
+    
     for(int i = 0; i< str.length();i++){
-        //if
+       // cout << "in loop!" <<endl;
+        if(str[i]==','){
+            posComma = i;
+           //cout << "i=" <<i <<endl;
+            //cout << "preComma=" << preComma <<endl;
+            //cout << "posComma=" << posComma <<endl;
+        
+        if(posComma == preComma+1 ){
+            return false;
+        }else{
+        
+        for(int j = preComma+1; j < posComma; j++){
+            if(str[j] == '.'){
+                ndot = ndot + 1;
+                idot = j;
+            }
+            if(str[j]=='e'||str[j] == 'E'){
+                nsci = nsci + 1 ;
+                isci = j;
+                sci = true;
+            }
+            if (str[j] == '-'){
+                imis[nmis] = j;
+                nmis = nmis + 1 ;
+                
+            }
+            if (str[j] == '+'){
+                iplus[nplus] = j;
+                nplus = nplus +1 ;
+                
+            }
+            
+            //if(str[j] == '-'){}
+        }
+
+        //cout << "number of dots: " <<  ndot << endl;
+        if(sci == true){
+            if(nplus + nmis > 2 ){
+                return false;
+            }
+            for(int k = 0; k < nplus; k++){
+                if(iplus[k]!=preComma+1 && iplus[k]!= isci+1){
+                    return false;
+                }
+            }
+             for(int k = 0; k < nmis; k++){
+                if(imis[k]!=preComma+1 && imis[k]!= isci+1){
+                    return false;
+                }
+            }
+        }
+        else{
+            if(nplus + nmis > 1 ){
+                return false;
+            }
+            if(nplus == 1 && iplus[0] != preComma +1){
+                return false;
+            }
+        
+            if(nmis == 1 && imis[0] != preComma +1){
+                return false;
+            }
+
+        }
+
+        if(ndot > 1 || nsci > 1 || nplus > 1){
+            //format = false;
+            //cout << "format = " << format << endl;
+            return false;
+        }
+        if(ndot == 1) //if there is a dot but in the wrong position
+        {
+            if( idot == preComma +1 || idot == posComma -1 ){
+            //format = false;
+            //cout << "format = " << format << endl;
+            return false;
+            }
+        }
+                
+        preComma = posComma;
+
+        ndot = 0;
+        nplus = 0;
+        nsci = 0;
+        nmis = 0;
+        }
+
+        }
     }
+
     return true;
 }
