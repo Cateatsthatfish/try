@@ -77,11 +77,108 @@ int main(){
     float *v1 = new float; // 向量1
     float *v2 = new float; // 向量2
 
+    if(mod == 1){
+        cout << "please enter vector 1:" ;
+    getline(cin,in1);
+    cout << "please enter vector 2:" ;
+    getline(cin,in2);
+    }
+
+    //calculate
+    //string 转float
+    if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
+    {
+    string str1, str2;
+    str1 = blank(in1);
+    str2 = blank(in2);
+    
+        if(isFloat(str1) && isFloat(str2) && isValid_mode1input(str1) && isValid_mode1input(str2)) //合理性验证
+        {
+
+    // string -> float*
+    //分割标志：‘，’
+     v1 = tofloat(str1);
+     v2 = tofloat(str2);
+        
+    
+
+    if( (v1[0]!=0) && (v2[0]!=0)){ //判断输入是否为零
+        if(v1[0]==v2[0]){ //判断长度是否相当
+            vlen = v1[0];
+            //计算&计时
+            cout << "start calculating... Please hold on a second... " <<endl;
+ if(vlen>5){
+    cout << "calculating indirectly:" <<endl;
+    auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
+    //cout << "here?" <<endl;
+
+    //五个值用来分别储存
+    long double result1 =0;
+    long double result2 =0;
+    long double result3 =0;
+    long double result4 =0;
+    long double result5 =0;
+
+    int start1 = vlen/5;
+    int start2 = 2*vlen/5;
+    int start3 = 3*vlen/5;
+    int start4 = 4*vlen/5;
+    int start5 = vlen+1;
+
+    thread first(dotProduct,1,start1,std::ref(v1),std::ref(v2),std::ref(result1));
+    thread second(dotProduct,start1,start2,std::ref(v1),std::ref(v2),std::ref(result2));    
+    thread third(dotProduct,start2,start3,std::ref(v1),std::ref(v2),std::ref(result3));
+    thread forth(dotProduct,start3,start4,std::ref(v1),std::ref(v2),std::ref(result4));
+    thread fifth(dotProduct,start4,start5,std::ref(v1),std::ref(v2),std::ref(result5));
+ 
+    first.join(); //主线程要等待子线程执行完毕
+    second.join();
+    third.join();
+    forth.join();
+    fifth.join();
+
+    IDresult = result1 + result2+result3+result4+result5;
+    auto t2=std::chrono::steady_clock::now();
+    //毫秒级
+    double idtime=std::chrono::duration<double,std::milli>(t2-t1).count();
+   
+    cout << IDresult << endl;
+    cout << "(time: " << idtime << "ms)" << endl;
+    }
+
+/////////////////////直接算
+    cout << "calculating directly:" <<endl;
+    auto t3=std::chrono::steady_clock::now();
+    Dresult = dot_product(v1,v2,vlen);
+    auto t4=std::chrono::steady_clock::now();
+    double dtime=std::chrono::duration<double,std::milli>(t4-t3).count();
+    cout << Dresult << endl;
+    cout << "(time: " << dtime << "ms)" << endl;}
+        else{
+           cout << "the two vectors do not have the same length" <<endl;
+        }
+    }
+    else{
+        cout << "no valid input received! "<<endl;
+    }
+
+
+    delete [] v1;
+    delete [] v2;
+    }
+    else{
+            cout << "invalid inputs!" << endl; 
+        }
+    }
+    else{
+        cout << "no input received! "<<endl;
+    }
+
 
     }
     
     if(mod == 4 ){
-                cout << "Please enter a positive integer 'n' to generate two n-length vectors(500M is the max): ";
+        cout << "Please enter a positive integer 'n' to generate two n-length vectors(500M is the max): ";
         string input_vlen ;
         getline(cin,input_vlen);
         while(!isValid_mode4input(input_vlen)){
@@ -324,4 +421,132 @@ bool isValid_mode4input(string in)
        
     
     return len;
+}
+
+bool isValid_mode1input(string str){
+    //cout << "in function ! " <<endl;
+    //bool format = true;
+    /////已有条件：在去掉空格之后且长度不为零的时候
+    //////逗号之间：（逗号的个数等于总共的元素的个数，float*中的元素的个数为n+1）
+    //////最多只有在中间一个.[实现]
+    //////最多只有在开头有一个负号
+    //////不能为空[实现]
+    //////科学计数法(中间可以有负号)
+    //////1.1e+3
+    //////1.1e3
+    //////1E3
+    ///////零在最前面
+
+    ///在最末尾加上，如果没有的话
+    
+    if(str[str.length()-1]!=','){
+       // cout << "no comma!" << endl;
+    str = str + ","; }
+
+    int preComma = -1; //前一个逗号
+    int posComma; //后一个逗号
+    int idot; //index of dot
+    int ndot = 0; // num of dot between two comma
+    int imis[2]; //index of minus
+    int nmis = 0; // num of minus between two comma
+    int iplus[2] ;
+    int nplus  = 0;
+    int isci ; // 科学计数法的坐标（E）
+    int nsci = 0; // 科学计数法的的个数（e）
+    bool sci = false;
+
+
+    
+    for(int i = 0; i< str.length();i++){
+       // cout << "in loop!" <<endl;
+        if(str[i]==','){
+            posComma = i;
+           //cout << "i=" <<i <<endl;
+            //cout << "preComma=" << preComma <<endl;
+            //cout << "posComma=" << posComma <<endl;
+        
+        if(posComma == preComma+1 ){
+            return false;
+        }else{
+        
+        for(int j = preComma+1; j < posComma; j++){
+            if(str[j] == '.'){
+                ndot = ndot + 1;
+                idot = j;
+            }
+            if(str[j]=='e'||str[j] == 'E'){
+                nsci = nsci + 1 ;
+                isci = j;
+                sci = true;
+            }
+            if (str[j] == '-'){
+                imis[nmis] = j;
+                nmis = nmis + 1 ;
+                
+            }
+            if (str[j] == '+'){
+                iplus[nplus] = j;
+                nplus = nplus +1 ;
+                
+            }
+            
+            //if(str[j] == '-'){}
+        }
+
+        //cout << "number of dots: " <<  ndot << endl;
+        if(sci == true){
+            if(nplus + nmis > 2 ){
+                return false;
+            }
+            for(int k = 0; k < nplus; k++){
+                if(iplus[k]!=preComma+1 && iplus[k]!= isci+1){
+                    return false;
+                }
+            }
+             for(int k = 0; k < nmis; k++){
+                if(imis[k]!=preComma+1 && imis[k]!= isci+1){
+                    return false;
+                }
+            }
+        }
+        else{
+            if(nplus + nmis > 1 ){
+                return false;
+            }
+            if(nplus == 1 && iplus[0] != preComma +1){
+                return false;
+            }
+        
+            if(nmis == 1 && imis[0] != preComma +1){
+                return false;
+            }
+
+        }
+
+        if(ndot > 1 || nsci > 1 || nplus > 1){
+            //format = false;
+            //cout << "format = " << format << endl;
+            return false;
+        }
+        if(ndot == 1) //if there is a dot but in the wrong position
+        {
+            if( idot == preComma +1 || idot == posComma -1 ){
+            //format = false;
+            //cout << "format = " << format << endl;
+            return false;
+            }
+        }
+                
+        preComma = posComma;
+
+        ndot = 0;
+        nplus = 0;
+        nsci = 0;
+        nmis = 0;
+        }
+
+        }
+    }
+
+    return true;
 }
