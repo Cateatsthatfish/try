@@ -116,7 +116,7 @@ if(v1[0]==v2[0]){
 
     vlen = v1[0];
 //////////////////五个线程
-         
+    if(vlen>100){
     cout << "calculating indirectly:" <<endl;
     auto t1=std::chrono::steady_clock::now();   //测量时间,代码来自张睿豪
     //cout << "here?" <<endl;
@@ -153,6 +153,7 @@ if(v1[0]==v2[0]){
    
     cout << IDresult << endl;
     cout << "(time: " << idtime << "ms)" << endl;
+    }
 
 /////////////////////直接算
     cout << "calculating directly:" <<endl;
