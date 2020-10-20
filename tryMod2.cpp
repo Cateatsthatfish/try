@@ -110,9 +110,10 @@ int main(){
 
 
             //计算&计时
-cout << "start calculating... Please hold on a second... " <<endl;
+
 
 if(v1[0]==v2[0]){
+    cout << "start calculating... Please hold on a second... " <<endl;
 
     vlen = v1[0];
 //////////////////五个线程
