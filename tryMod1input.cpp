@@ -19,10 +19,10 @@ int main(){
 
 bool isValid_mode1input(string str){
     //cout << "in function ! " <<endl;
-    bool format = true;
+    //bool format = true;
     /////已有条件：在去掉空格之后且长度不为零的时候
     //////逗号之间：（逗号的个数等于总共的元素的个数，float*中的元素的个数为n+1）
-    //////最多只有在中间一个.
+    //////最多只有在中间一个.[实现]
     //////最多只有在开头有一个负号
     //////不能为空
     //////科学计数法(中间可以有负号)
@@ -42,6 +42,9 @@ bool isValid_mode1input(string str){
     int ndot = 0; // num of dot between two comma
     int imis; //index of minus
     int nmis = 0; // num of minus between two comma
+    int isci = 0; // 科学计数法的坐标（E）
+    int nsci = 0; // 科学计数法的的个数（e）
+
 
     
     for(int i = 0; i< str.length();i++){
@@ -51,39 +54,48 @@ bool isValid_mode1input(string str){
            //cout << "i=" <<i <<endl;
             //cout << "preComma=" << preComma <<endl;
             //cout << "posComma=" << posComma <<endl;
-            
+        
+        if(posComma == preComma+1 ){
+            return false;
+        }else{
         
         for(int j = preComma+1; j < posComma; j++){
             if(str[j] == '.'){
                 ndot = ndot + 1;
                 idot = j;
             }
+            if(str[j]=='e'||str[j] == 'E'){
+                nsci = nsci + 1 ;
+                isci = j;
+            }
             //if(str[j] == '-'){}
         }
 
-        cout << "number of dots: " <<  ndot << endl;
-        if(ndot > 1){
-            format = false;
+        //cout << "number of dots: " <<  ndot << endl;
+
+        if(ndot > 1 || nsci > 1){
+            //format = false;
             //cout << "format = " << format << endl;
-            return format;
+            return false;
         }
         if(ndot == 1) //if there is a dot but in the wrong position
         {
             if( idot == preComma +1 || idot == posComma -1 ){
-            format = false;
+            //format = false;
             //cout << "format = " << format << endl;
-            return format;
+            return false;
             }
         }
-        
 
         
+                
         preComma = posComma;
 
         ndot = 0;
+        }
 
         }
     }
 
-    return format;
+    return true;
 }
