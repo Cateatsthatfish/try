@@ -6,8 +6,14 @@ int main(){
     /*tring dot = "1..1.";
     cout <<  isValid_mode1input(dot) <<endl;*/
 
-    string dot = "1.1,2.1";
-    cout <<  isValid_mode1input(dot) <<endl;
+    /*string dot = "1.1,2.1";
+    cout <<  isValid_mode1input(dot) <<endl;*/
+
+    string dot1 = "1.,2";
+    cout <<  isValid_mode1input(dot1) <<endl;
+
+    string dot2 = ".1";
+    cout <<  isValid_mode1input(dot2) <<endl;
     return 0;
 }
 
@@ -61,6 +67,15 @@ bool isValid_mode1input(string str){
             //cout << "format = " << format << endl;
             return format;
         }
+        if(ndot == 1) //if there is a dot but in the wrong position
+        {
+            if( idot == preComma +1 || idot == posComma -1 ){
+            format = false;
+            //cout << "format = " << format << endl;
+            return format;
+            }
+        }
+        
 
         
         preComma = posComma;
