@@ -1,5 +1,6 @@
 # c++ assignment 3
-## report : https://shimo.im/docs/yhXDjRGYYt6VWCHR/ 可复制链接后用石墨文档 App 或小程序打开
+## report : 
+https://shimo.im/docs/yhXDjRGYYt6VWCHR/ 可复制链接后用石墨文档 App 或小程序打开
 ## related .cpp
 1. assignment3.cpp -> includes all the four functions
 2. tryMod1.cpp -> enter from terminal
