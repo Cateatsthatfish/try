@@ -63,7 +63,9 @@ int main(){
     str1 = blank(in1);
     str2 = blank(in2);
     cout << str1 << endl;
-        if(isFloat(in1) && isFloat(in2) && isValid_mode1input(str1) && isValid_mode1input(str2)) //合理性验证
+
+
+        if(isFloat(str1) && isFloat(str2) && isValid_mode1input(str1) && isValid_mode1input(str2)) //合理性验证
         {
 
     // string -> float*
@@ -136,7 +138,8 @@ int main(){
 
     delete [] v1;
     delete [] v2;
-    }else{
+    }
+    else{
             cout << "invalid inputs!" << endl; 
         }
     }
