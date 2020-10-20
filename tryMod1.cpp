@@ -62,6 +62,7 @@ int main(){
     string str1, str2;
     str1 = blank(in1);
     str2 = blank(in2);
+    cout << str1 << endl;
         if(isFloat(in1) && isFloat(in2) && isValid_mode1input(str1) && isValid_mode1input(str2)) //合理性验证
         {
 
@@ -69,13 +70,7 @@ int main(){
     //分割标志：‘，’
      v1 = tofloat(str1);
      v2 = tofloat(str2);
-        }else{
-            cout << "invalid inputs!" << endl; 
-        }
-    }
-    else{
-        cout << "no input received! "<<endl;
-    }
+        
     
 
     if( (v1[0]!=0) && (v2[0]!=0)){ //判断输入是否为零
@@ -135,11 +130,19 @@ int main(){
         }
     }
     else{
-        cout << "no input received! "<<endl;
+        cout << "no valid input received! "<<endl;
     }
+
 
     delete [] v1;
     delete [] v2;
+    }else{
+            cout << "invalid inputs!" << endl; 
+        }
+    }
+    else{
+        cout << "no input received! "<<endl;
+    }
     
     return 0;
 }
