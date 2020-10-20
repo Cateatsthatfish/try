@@ -24,14 +24,14 @@ const int b = 1;
 
 using namespace std;
 
-//////需要用到的函数
+////模式判断
 
 void hint(); /////给出提示
 bool isValid_modeinput(string); ///输入模式mode的判断，只有输入0-4 （不含 空格，回车，tab）才判对
 long double dot_product(float*, float*,int); // 计算向量 //这里需要改成long double计算大数值
 bool isFloat(string); //判断输入的数有没有除了float和，之外的东西
 bool StringIsNull(string); //判断输入为空 ////////////////？如果是回车怎么办？
-bool IsValid_m4input(int); //判断mode4中输入的数是否符合条件，先假设它是一个整数，再判断它是否大于等于零，其他情况还没想到
+
 string blank(string); // 去除空格
 float* tofloat(string); // 提取字符串中的float
 ///用于多线程计算
@@ -41,7 +41,8 @@ void dotProduct(int startp, int endp, float* v1, float* v2, long double &result)
         result += v1[i] * v2[i];
     }
 }
-
+bool isValid_mode1input(string);
+bool isValid_mode4input(string);
 
 ///// 主函数
 
