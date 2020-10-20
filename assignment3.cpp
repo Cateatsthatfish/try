@@ -114,6 +114,38 @@ int main(){
     
     }
     }
+    
+    if(mod == 3){
+        cout << "please put the vectors into two binary file 'v1_b20M.txt' and 'v2_b20M.txt'separately" <<endl;
+    ///read from v1.txt to get string in1
+        //ifstream bfile1("v1.txt",ios::in|ios::binary);
+        //ifstream bfile1("v1_b20M.txt",ios::in|ios::binary);
+        ifstream bfile1("v1_b20M.dat",ios::in|ios::binary);
+        //ifstream bfile1("v1_b200M.dat",ios::in|ios::binary);
+        if(!bfile1){
+            cout << "Oops! file\" v1.txt \" failed to open." << endl;}
+        else{
+            cout << "read from the file1" <<endl;
+            getline(bfile1,in1);
+        //cout << <<endl;
+        bfile1.close();
+        }
+    ///read from v2.txt to get string in2
+        //ifstream bfile2("v2.txt",ios::in|ios::binary);
+        //ifstream bfile2("v2_b20M.txt",ios::in|ios::binary);
+        ifstream bfile2("v2_b20M.dat",ios::in|ios::binary);
+        //ifstream bfile2("v2_b200M.dat",ios::in|ios::binary);
+        if(!bfile2){
+            cout << "Oops! file\" v2.txt \" failed to open." << endl;}
+        else{
+            cout << "read from the file2" <<endl;
+            getline(bfile2,in2);
+        //cout << <<endl;
+        bfile2.close();
+        }
+    
+    }
+    
     //calculate
     //string 转float
     if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
