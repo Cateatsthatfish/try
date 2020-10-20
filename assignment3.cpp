@@ -2,7 +2,7 @@
 #include<iostream>
 #include<string>
 #include<cstring>
-#include<Windows.h>
+#include <Windows.h>
 #include <fstream>
 #include <thread>
 #include <numeric>
@@ -15,8 +15,12 @@
 #pragma GCC optimize(3, "Ofast", "inline") //O3优化，由张睿豪提供
 
 /////随机数范围
+/*
 const int a = INT_MIN/2;
 const int b = INT_MAX/2;
+*/
+const int a = -1;
+const int b = 1;
 
 using namespace std;
 
@@ -63,124 +67,33 @@ int main(){
     //各种模式
 
     //退出程序
-    if(mod == 0){ exit(0);} ////////////?确认用0是否合适
+    if(mod == 0){ exit(0);} 
     //terminal 读入
     if(mod == 1) 
     { 
-    cout << "please enter vector 1:" ;
-    getline(cin,in1);
-    cout << "please enter vector 2:" ;
-    getline(cin,in2);
+
     }
     //txt 读入
     if(mod == 2)
     {
-    cout << "please put the vectors into 'v1.txt' and 'v2.txt'separately" <<endl;
     
-    ifstream myfile1("v1.txt");
-    if(myfile1.is_open()){
-        cout << "read from the file1" <<endl;
-        getline(myfile1,in1);
-        //cout <<frofile <<endl;
-        myfile1.close();
-    }
-    else{
-        cout << "failed to open the file1";
-    }
-    //cout << in1 <<endl;
-
-    ifstream myfile2("v2.txt");
-    if(myfile2.is_open()){
-        cout << "read from the file2" <<endl;
-        getline(myfile2,in2);
-        //cout << <<endl;
-        myfile2.close();
-    }
-    else{
-        cout << "failed to open the file2";
-    
-    }
     }
     //binary 读入
     if(mod == 3)
     {
-        cout << "please put the vectors into two binary file 'v1.txt' and 'v2.txt'separately" <<endl;
-    ///read from v1.txt to get string in1
-        ifstream bfile1("v1.txt",ios::in|ios::binary);
-        if(!bfile1){
-            cout << "Oops! file\" v1.txt \" failed to open." << endl;}
-        else{
-            cout << "read from the file1" <<endl;
-            getline(bfile1,in1);
-        //cout << <<endl;
-        bfile1.close();
-        }
-    ///read from v2.txt to get string in2
-        ifstream bfile2("v2.txt",ios::in|ios::binary);
-        if(!bfile2){
-            cout << "Oops! file\" v2.txt \" failed to open." << endl;}
-        else{
-            cout << "read from the file2" <<endl;
-            getline(bfile2,in2);
-        //cout << <<endl;
-        bfile2.close();
-        }
+        
     }
     
     //string 转float
     //如果没有进入mode1，2，3 in1 和in2就都会是零
     //那么v1和v2还都什么都没有
-    if(mod!=4){
-    if((!StringIsNull(in1)) &&(!StringIsNull(in2)) ) ///判断in是否长度为零
-    {
-        if(isFloat(in1) && isFloat(in2)) //合理性验证待更新
-        {
-
-    // 去除空格
-    string str1, str2;
-    str1 = blank(in1);
-    str2 = blank(in2);
     
-    // string -> float*
-    //分割标志：‘，’
-     v1 = tofloat(str1);
-     v2 = tofloat(str2);
-        }else{
-            cout << "invalid inputs!" << endl; 
-        }
-
-    }
-    else{
-        
-        cout << "no input received! "<<endl;
-    }
-    }
- 
-    //只能进到mod4中
-    //直接在程序中生成v1和v2
     if(mod == 4){
-        cout << "Please enter a positive integer 'n' to generate two n-length vectors: ";
-        cin >> vlen; //////异常处理（1、如果输入不是正整数怎么办 2、科学计数法？输入）
-        if(IsValid_m4input(vlen)){
-        //因为float 比 int范围大所以可以把长度放在第一位
-        v1[0] = vlen;
-        v2[0] = vlen;
-        srand((int)time(0));
-        ///把数存入v1和v2
-        for (int i = 1; i < vlen+1; i++) 
-    {
-         v1[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
-         v2[i] = a + rand()%(b-a) + rand()/double(RAND_MAX);
-    }
 
-        }else{
-            cout << "invalid input \'n\'" <<endl;
-        }
-        
      }
 
     //////得到v1和v2
-    try{
+    //try{
     if( (v1[0]!=0) && (v2[0]!=0)){
         if(v1[0]==v2[0]){
             vlen = v1[0];
@@ -245,10 +158,10 @@ int main(){
     else{
         cout << "no input received! "<<endl;
     }
-    }
+    /*}
     catch(bad_alloc & e){
         cerr << e.what() << endl;
-    }
+    }*/
 
 
     delete [] v1;
@@ -292,12 +205,6 @@ bool StringIsNull(string str){
     return false;
 }
 
-bool IsValid_m4input(int len){
-    if(len <=0){
-        return false;
-    }
-    return true;
-}
 
 ////// 提取float
 float* tofloat(string str)
@@ -386,4 +293,26 @@ bool isFloat(string in){
     //cout << back <<endl;
     //return true;
     return back;
+}
+
+bool isValid_mode4input(string in)
+{
+    bool len = true;
+    if(in.length()==0){
+        len = false;
+    
+    }
+    if(in[0]==0){
+        len = false;
+    }
+    for(int i = 0 ; i< in.length();i++){
+        if(in[i]>'9'||in[i]<'0')
+        {
+            len = false;
+            break;
+        }
+    }
+       
+    
+    return len;
 }
