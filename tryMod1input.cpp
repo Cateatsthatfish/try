@@ -41,7 +41,7 @@ bool isValid_mode1input(string str){
     //////逗号之间：（逗号的个数等于总共的元素的个数，float*中的元素的个数为n+1）
     //////最多只有在中间一个.[实现]
     //////最多只有在开头有一个负号
-    //////不能为空
+    //////不能为空[实现]
     //////科学计数法(中间可以有负号)
     //////1.1e+3
     //////1.1e3
@@ -102,6 +102,12 @@ bool isValid_mode1input(string str){
         }
 
         //cout << "number of dots: " <<  ndot << endl;
+        if(sci == true){}
+        else{
+            if(nplus > 1 || nmis > 1 ){
+                return false;
+            }
+        }
 
         if(ndot > 1 || nsci > 1 || nplus > 1){
             //format = false;
@@ -122,6 +128,9 @@ bool isValid_mode1input(string str){
         preComma = posComma;
 
         ndot = 0;
+        nplus = 0;
+        nsci = 0;
+        nmis = 0;
         }
 
         }
