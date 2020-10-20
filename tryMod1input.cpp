@@ -3,13 +3,16 @@ using namespace std;
 bool isValid_mode1input(string str);
 
 int main(){
-    string dot = "1..1";
+    /*tring dot = "1..1.";
+    cout <<  isValid_mode1input(dot) <<endl;*/
+
+    string dot = "1.1,2.1";
     cout <<  isValid_mode1input(dot) <<endl;
     return 0;
 }
 
 bool isValid_mode1input(string str){
-    cout << "in function ! " <<endl;
+    //cout << "in function ! " <<endl;
     bool format = true;
     /////已有条件：在去掉空格之后且长度不为零的时候
     //////逗号之间：（逗号的个数等于总共的元素的个数，float*中的元素的个数为n+1）
@@ -39,9 +42,9 @@ bool isValid_mode1input(string str){
        // cout << "in loop!" <<endl;
         if(str[i]==','){
             posComma = i;
-            cout << "i=" <<i <<endl;
-            cout << "preComma=" << preComma <<endl;
-            cout << "posComma=" << posComma <<endl;
+           //cout << "i=" <<i <<endl;
+            //cout << "preComma=" << preComma <<endl;
+            //cout << "posComma=" << posComma <<endl;
             
         
         for(int j = preComma+1; j < posComma; j++){
@@ -55,12 +58,14 @@ bool isValid_mode1input(string str){
         cout << "number of dots: " <<  ndot << endl;
         if(ndot > 1){
             format = false;
-            cout << "format = " << format << endl;
-            //return format;
+            //cout << "format = " << format << endl;
+            return format;
         }
 
         
         preComma = posComma;
+
+        ndot = 0;
 
         }
     }
