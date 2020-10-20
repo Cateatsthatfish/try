@@ -86,9 +86,9 @@ bool isValid_mode1input(string str){
     int posComma; //后一个逗号
     int idot; //index of dot
     int ndot = 0; // num of dot between two comma
-    int imis; //index of minus
+    int imis[2]; //index of minus
     int nmis = 0; // num of minus between two comma
-    int iplus ;
+    int iplus[2] ;
     int nplus  = 0;
     int isci ; // 科学计数法的坐标（E）
     int nsci = 0; // 科学计数法的的个数（e）
@@ -119,19 +119,25 @@ bool isValid_mode1input(string str){
                 sci = true;
             }
             if (str[j] == '-'){
+                imis[nmis] = j;
                 nmis = nmis + 1 ;
-                imis = j;
+                
             }
             if (str[j] == '+'){
+                iplus[nplus] = j;
                 nplus = nplus +1 ;
-                iplus = j;
+                
             }
             
             //if(str[j] == '-'){}
         }
 
         //cout << "number of dots: " <<  ndot << endl;
-        if(sci == true){}
+        if(sci == true){
+            if(nplus + nmis > 2 ){
+                return false;
+            }
+        }
         else{
             if(nplus + nmis > 1 ){
                 return false;
