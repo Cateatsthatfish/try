@@ -60,7 +60,8 @@ int main(){
     //txt 读入
     cout << "please put the vectors into 'v1.txt' and 'v2.txt'separately" <<endl;
     
-    ifstream myfile1("v1_T20M.txt");
+    //ifstream myfile1("v1_T20M.txt");
+    ifstream myfile1("v1_test.txt");
     if(myfile1.is_open()){
         cout << "read from the file1" <<endl;
         getline(myfile1,in1);
@@ -72,7 +73,8 @@ int main(){
     }
     //cout << in1 <<endl;
 
-    ifstream myfile2("v2_T20M.txt");
+    //ifstream myfile2("v2_T20M.txt");
+    ifstream myfile2("v2_test.txt");
     if(myfile2.is_open()){
         cout << "read from the file2" <<endl;
         getline(myfile2,in2);
@@ -103,14 +105,7 @@ int main(){
     //分割标志：‘，’
      v1 = tofloat(str1);
      v2 = tofloat(str2);
-        }else{
-            cout << "invalid inputs!" << endl; 
-        }
-    }
-    else{
         
-        cout << "no input received! "<<endl;
-    }
     
 
 
@@ -171,6 +166,16 @@ if(v1[0]==v2[0]){
 else{
     cout << "no the same length!" <<endl;
 }
+
+}
+        else{
+            cout << "invalid inputs!" << endl; 
+        }
+    }
+    else{
+        
+        cout << "no input received! "<<endl;
+    }
     delete [] v1;
     delete [] v2;
     
