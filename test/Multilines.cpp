@@ -92,7 +92,7 @@ int main() //主线程
     }
     //cout << v1[1] << endl;
 
-    ////////////////////////////////////////////////////简单粗暴的方法
+    //////简单粗暴的方法
     long double sum = 0;
     auto t1 = std::chrono::steady_clock::now(); 
 
@@ -106,7 +106,7 @@ int main() //主线程
     double period1 = std::chrono::duration<double, std::milli>(t2-t1).count();
     cout << "period1 costs "<< period1 << "ms" << endl;
 
-    /////////////////////////////////////////////////////多线程的方法
+    //////多线程的方法
 
     
     int start1 = innum/5;

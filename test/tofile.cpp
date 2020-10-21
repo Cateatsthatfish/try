@@ -24,7 +24,7 @@ int main()
         cout << "file v1 is open."<<endl;
     //读入随机数
          srand((int)time(0));  // 产生随机种子  把0换成NULL也行
-    for (int i = 0; i < 20; i++) 
+    for (int i = 0; i < 20000000; i++) 
     {
         
         //float r = a + rand()%(b-a) + rand()/double(RAND_MAX);
@@ -46,7 +46,7 @@ int main()
         cout << "file v2 is open."<<endl;
     //读入随机数
 
-    for (int i = 0; i < 20; i++) 
+    for (int i = 0; i < 20000000; i++) 
     {
         
         //float r = a + rand()%(b-a) + rand()/double(RAND_MAX);

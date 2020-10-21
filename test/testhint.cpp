@@ -41,15 +41,21 @@ int main()
     }
 
     int mod = atoi(mode.c_str());
-    //cout << "int mod = " << mod;
+    cout << "int mod = " << mod;
 
 
     return 0;
 }
 bool isValid_modeinput(string in)
 {
+    
+    //string in = blank(m_in); //////空格后面如果还有输入就不要了
+    //cout << "after blank： " << in <<endl;
     bool right_mode = false;
+    ///除掉空格和tab？
+    //cout << "in.length() = " << in.length() <<endl;
     if(in.length()==1){
+        //cout << "in loop" <<endl;
         if(in[0]<='4'&& in[0]>='0')
         {
             right_mode = true;

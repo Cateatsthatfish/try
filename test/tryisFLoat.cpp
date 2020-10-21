@@ -3,9 +3,7 @@ using namespace std;
 int main(){
     //string in ="1234";
     //string in ="##1234";
-     //string in = "#123.23#.";
-     //string in ="12e+3,1234.314,qwe";
-     string in ="12e+3,1234.314,";
+     string in = "#123.23#.";
     bool back = true;
     int ascii = -1;
     //cout << in.length() << endl;
